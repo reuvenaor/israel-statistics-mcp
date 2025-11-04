@@ -2,6 +2,10 @@
 
 A **Model Context Protocol (MCP) server** that provides programmatic access to the Israeli Central Bureau of Statistics (CBS) price indices and economic data. Built with TypeScript, this server offers 8 comprehensive tools for retrieving, analyzing, and calculating Israeli economic statistics.
 
+<a href="https://glama.ai/mcp/servers/@reuvenaor/israel-statistics-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@reuvenaor/israel-statistics-mcp/badge" alt="Israel Statistics MCP server" />
+</a>
+
 ## 🐳 **Installation & Usage**
 
 ### **Docker (Recommended)**
