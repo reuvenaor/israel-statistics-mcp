@@ -1,62 +1,38 @@
-# Dockerfile for israel-statistics-mcp MCP server
-
-# 1. Builder stage - Use the latest Node.js 20 image with specific version
-FROM node:22.2.0-bookworm-slim AS builder
-
-# Update packages first to get security patches
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    ca-certificates && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Create a non-root user
-RUN useradd -m -u 1001 appuser
-
+# syntax=docker/dockerfile:1
+# Digest-pinned base (Renovate keeps the digest fresh — that cadence replaces
+# nondeterministic apt-get upgrade layers).
+FROM node:24-bookworm-slim@sha256:b31e7a42fdf8b8aa5f5ed477c72d694301273f1069c5a2f71d53c6482e99a2fc AS base
 WORKDIR /app
+# pnpm version comes from package.json "packageManager" — single source of truth
+RUN corepack enable
 
-# Install pnpm globally with latest version
-RUN npm install -g pnpm@latest
-
-# Copy all package manifests for a full workspace install
+FROM base AS build
 COPY package.json pnpm-lock.yaml ./
-COPY tsconfig.json tsconfig.base.json ./
-
-# Install all dependencies for the israel-statistics-mcp workspace package
 RUN pnpm install --frozen-lockfile
+COPY tsconfig.json tsconfig.base.json tsup.config.ts ./
+COPY src ./src
+RUN pnpm build
 
-# Copy the rest of the source code
-COPY src/ ./src/
-COPY tsup.config.ts ./
+FROM base AS proddeps
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
 
-# Build the project
-RUN pnpm run build
-
-# Remove dev dependencies and keep only production deps
-RUN pnpm prune --prod
-
-# 2. Final stage - Use official Node.js slim (approved by Docker Hub)
-FROM node:22.2.0-bookworm-slim
-
-# Update packages for security
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Create a non-root user
-RUN useradd -m -u 1001 appuser
-
+FROM node:24-bookworm-slim@sha256:b31e7a42fdf8b8aa5f5ed477c72d694301273f1069c5a2f71d53c6482e99a2fc AS runtime
+ENV NODE_ENV=production
 WORKDIR /app
-
-# Copy the built application from builder
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/dist ./dist/
-COPY --from=builder /app/node_modules ./node_modules/
-
-# Switch to non-root user
+RUN useradd --create-home --uid 1001 appuser
+COPY --from=proddeps /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+COPY package.json ./
 USER appuser
 
-# Run the application
+LABEL org.opencontainers.image.title="israel-statistics-mcp" \
+      org.opencontainers.image.description="MCP server for Israeli CBS price indices and economic data (9 tools)" \
+      org.opencontainers.image.source="https://github.com/reuvenaor/israel-statistics-mcp" \
+      org.opencontainers.image.licenses="MIT" \
+      io.modelcontextprotocol.server.name="io.github.reuvenaor/israel-statistics-mcp"
+
+# No HEALTHCHECK by design: this is a stdio MCP server run as
+# `docker run --rm -i` per client session — it owns no port and its liveness
+# IS the stdin/stdout pipe held by the client.
 CMD ["node", "dist/index.js"]
