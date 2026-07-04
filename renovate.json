@@ -1,0 +1,33 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices", ":semanticCommits"],
+  "schedule": ["before 6am on monday"],
+  "timezone": "Asia/Jerusalem",
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      "description": "zod must stay on the v3 line while on MCP SDK 1.x",
+      "matchPackageNames": ["zod"],
+      "allowedVersions": "<4.0.0"
+    },
+    {
+      "description": "eslint 10 blocked until typescript-eslint supports it",
+      "matchPackageNames": ["eslint"],
+      "allowedVersions": "<10.0.0"
+    },
+    {
+      "description": "typescript majors reviewed manually (tsup/typescript-eslint support)",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<6.0.0"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on monday"]
+  }
+}

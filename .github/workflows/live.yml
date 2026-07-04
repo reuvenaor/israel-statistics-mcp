@@ -1,0 +1,44 @@
+name: Live CBS
+
+# Nightly non-blocking verification against the real CBS API.
+# Failures open a labelled issue instead of blocking merges — CBS outages
+# and payload drift should be triaged, not block development.
+on:
+  schedule:
+    - cron: "23 3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test:live
+      - run: node scripts/smoke.mjs --live
+      - name: Open an issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="Nightly live CBS suite failed ($(date -u +%F))"
+          body="The live CBS verification failed. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          Triage: if ALL tools fail with timeouts/5xx it is a CBS outage — close this. A single tool/schema failure means CBS changed a payload shape: capture the new payload as a fixture and adjust the response schema."
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --label live-cbs-failure --state open --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" --label live-cbs-failure || \
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          fi
