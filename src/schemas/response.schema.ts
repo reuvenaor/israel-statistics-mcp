@@ -476,7 +476,7 @@ export const transformedMainIndicesByPeriodSchema = z.object({
     )
     .describe("Array of main price indices for the specified period range"),
   groupedByDate: z
-    .record(z.string(), z.array(z.any()))
+    .record(z.string(), z.array(z.unknown()))
     .describe("Indices grouped by date for easier navigation"),
   dateRange: z
     .string()
