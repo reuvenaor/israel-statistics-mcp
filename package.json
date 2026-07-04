@@ -1,7 +1,8 @@
 {
   "name": "@reuvenorg/israel-statistics-mcp",
   "version": "0.0.2",
-  "description": "Model Context Protocol (MCP) server for Israeli Central Bureau of Statistics (CBS) price indices and economic data. Provides 8 comprehensive tools for retrieving, analyzing, and calculating Israeli economic statistics including CPI, housing prices, producer indices, and inflation calculations.",
+  "description": "Model Context Protocol (MCP) server for Israeli Central Bureau of Statistics (CBS) price indices and economic data. Provides 9 tools for retrieving, analyzing, and calculating Israeli economic statistics including CPI, housing prices, producer indices, and inflation calculations.",
+  "mcpName": "io.github.reuvenaor/israel-statistics-mcp",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,8 +12,9 @@
     "israstat-mcp": "./dist/index.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
+  "packageManager": "pnpm@10.15.0",
   "publishConfig": {
     "access": "public"
   },
@@ -73,8 +75,8 @@
     "prepublishOnly": "pnpm run clean && pnpm run build && pnpm run typecheck && pnpm run test",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "lint": "eslint src/**/*.ts --ext .ts",
-    "lint:fix": "eslint src/**/*.ts --ext .ts --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "changeset": "changeset",
@@ -83,27 +85,33 @@
     "version": "changeset version && pnpm install --lockfile-only",
     "release": "pnpm run build && changeset publish"
   },
+  "pnpm": {
+    "overrides": {
+      "path-to-regexp": "^8.4.0",
+      "qs": "^6.15.3",
+      "esbuild": ">=0.28.1"
+    }
+  },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.15.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "node-fetch": "^3.3.2",
     "xml2js": "^0.6.2",
-    "zod": "^3.24.1"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.5",
-    "@eslint/js": "^9.34.0",
-    "@types/node": "^22.11.0",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.0.0",
     "@types/xml2js": "^0.4.14",
-    "@typescript-eslint/eslint-plugin": "^8.40.0",
-    "@typescript-eslint/parser": "^8.40.0",
-    "eslint": "^9.34.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "tsup": "^8.5.0",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.62.1",
+    "vitest": "^4.1.9"
   }
 }
