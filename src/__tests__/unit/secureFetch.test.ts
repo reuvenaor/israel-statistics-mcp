@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { z } from "zod"
-import { CbsApiError, secureFetch } from "../mcp/helpers/fetcher"
+import { CbsApiError, secureFetch } from "../../mcp/helpers/fetcher"
 
 const anySchema = z.any()
 const fetchMock = vi.fn()

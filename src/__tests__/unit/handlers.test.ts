@@ -1,23 +1,23 @@
 import { describe, expect, it, vi, beforeEach } from "vitest"
-import { getIndexTopics } from "../mcp/handlers/getIndexTopics"
-import { getCatalogChapters } from "../mcp/handlers/getCatalogChapters"
-import { getChapterTopics } from "../mcp/handlers/getChapterTopics"
-import { getSubjectCodes } from "../mcp/handlers/getSubjectCodes"
-import { getIndexData } from "../mcp/handlers/getIndexData"
-import { getIndexCalculator } from "../mcp/handlers/getIndexCalculator"
-import { getAllIndices } from "../mcp/handlers/getAllIndices"
+import { getIndexTopics } from "../../mcp/handlers/getIndexTopics"
+import { getCatalogChapters } from "../../mcp/handlers/getCatalogChapters"
+import { getChapterTopics } from "../../mcp/handlers/getChapterTopics"
+import { getSubjectCodes } from "../../mcp/handlers/getSubjectCodes"
+import { getIndexData } from "../../mcp/handlers/getIndexData"
+import { getIndexCalculator } from "../../mcp/handlers/getIndexCalculator"
+import { getAllIndices } from "../../mcp/handlers/getAllIndices"
 import {
   getMainIndices,
   getMainIndicesByPeriod,
-} from "../mcp/handlers/getMainIndices"
+} from "../../mcp/handlers/getMainIndices"
 
 // Mock the secureFetch function
-vi.mock("../mcp/helpers/fetcher", () => ({
+vi.mock("../../mcp/helpers/fetcher", () => ({
   secureFetch: vi.fn(),
   GlobalParams: {},
 }))
 
-import { secureFetch } from "../mcp/helpers/fetcher"
+import { secureFetch } from "../../mcp/helpers/fetcher"
 const mockSecureFetch = vi.mocked(secureFetch)
 
 describe("Israel Statistics MCP Handlers", () => {

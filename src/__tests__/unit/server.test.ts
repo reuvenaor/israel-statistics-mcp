@@ -3,19 +3,19 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { Client } from "@modelcontextprotocol/sdk/client/index.js"
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js"
 
-vi.mock("../mcp/helpers/fetcher", () => ({
+vi.mock("../../mcp/helpers/fetcher", () => ({
   secureFetch: vi.fn(),
   GlobalParams: {},
 }))
 
-import { secureFetch } from "../mcp/helpers/fetcher"
-import { createServer } from "../server"
-import { Semaphore } from "../mcp/helpers/semaphore"
+import { secureFetch } from "../../mcp/helpers/fetcher"
+import { createServer } from "../../server"
+import { Semaphore } from "../../mcp/helpers/semaphore"
 const mockSecureFetch = vi.mocked(secureFetch)
 
 function fixture(name: string): unknown {
   return JSON.parse(
-    readFileSync(new URL(`./fixtures/${name}`, import.meta.url), "utf8")
+    readFileSync(new URL(`../fixtures/${name}`, import.meta.url), "utf8")
   )
 }
 
@@ -135,8 +135,8 @@ describe("MCP server (InMemoryTransport round-trip)", () => {
 
   it("surfaces handler errors as clean isError results, not raw dumps", async () => {
     const { CbsApiError } = await vi.importActual<
-      typeof import("../mcp/helpers/fetcher")
-    >("../mcp/helpers/fetcher")
+      typeof import("../../mcp/helpers/fetcher")
+    >("../../mcp/helpers/fetcher")
     mockSecureFetch.mockRejectedValue(
       new CbsApiError("CBS API request timed out after 30s", "index/data/price")
     )

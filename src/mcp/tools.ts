@@ -89,7 +89,7 @@ export const TOOLS: ToolDefinition[] = [
     name: "get_catalog_chapters",
     title: "List Index Chapters",
     description:
-      "List the 11 CBS index chapters (a=Consumer Price Index, aa=Housing Market, b/ba/bb=Producer Prices, c/ca=Building Inputs, d=Road Construction, e=Agriculture, f/fa=Bus & Minibus Inputs). Use a chapterId with get_chapter_topics or get_all_indices.",
+      "List all CBS index chapters (a=Consumer Price Index, aa=Housing Market, b/ba/bb=Producer Prices, c/ca=Building Inputs, d=Road Construction, e=Agriculture, f/fa=Bus & Minibus Inputs, plus any newly added). This is the authoritative chapter list — use a chapterId with get_chapter_topics or get_all_indices.",
     inputSchema: getCatalogChaptersSchema,
     outputSchema: getCatalogChaptersOutputSchema,
     handler: getCatalogChapters,

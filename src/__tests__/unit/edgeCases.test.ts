@@ -5,36 +5,36 @@ import {
   compareYearMonth,
   normalizeCalculatorDate,
   toYearMonth,
-} from "../mcp/helpers/dates"
-import { parseNumberOrNull } from "../mcp/helpers/numbers"
+} from "../../mcp/helpers/dates"
+import { parseNumberOrNull } from "../../mcp/helpers/numbers"
 import {
   checkHousingWarnings,
   getProvisionalWindow,
-} from "../mcp/helpers/housingWarnings"
+} from "../../mcp/helpers/housingWarnings"
 import {
   chapterTopicsResponseSchema,
   indexCalculatorResponseSchema,
   indexDataResponseSchema,
   mainIndicesByPeriodXmlResponseSchema,
-} from "../schemas/response.schema"
+} from "../../schemas/response.schema"
 import {
   getIndexCalculatorSchema,
   getIndexDataSchema,
   getMainIndicesByPeriodSchema,
-} from "../schemas/request.schema"
+} from "../../schemas/request.schema"
 
-vi.mock("../mcp/helpers/fetcher", () => ({
+vi.mock("../../mcp/helpers/fetcher", () => ({
   secureFetch: vi.fn(),
   GlobalParams: {},
 }))
 
-import { secureFetch } from "../mcp/helpers/fetcher"
-import { getIndexCalculator } from "../mcp/handlers/getIndexCalculator"
-import { getMainIndicesByPeriod } from "../mcp/handlers/getMainIndices"
+import { secureFetch } from "../../mcp/helpers/fetcher"
+import { getIndexCalculator } from "../../mcp/handlers/getIndexCalculator"
+import { getMainIndicesByPeriod } from "../../mcp/handlers/getMainIndices"
 const mockSecureFetch = vi.mocked(secureFetch)
 
 function fixture(name: string): string {
-  return readFileSync(new URL(`./fixtures/${name}`, import.meta.url), "utf8")
+  return readFileSync(new URL(`../fixtures/${name}`, import.meta.url), "utf8")
 }
 
 function parseXmlLikeFetcher(xml: string): Promise<unknown> {

@@ -124,7 +124,7 @@ export const getMainIndicesSchema = z.object({
 })
 
 export const getMainIndicesByPeriodSchema = z.object({
-  startDate: z
+  startDate: z.coerce
     .string()
     .regex(
       YEAR_MONTH_COMPACT_PATTERN,
@@ -133,7 +133,7 @@ export const getMainIndicesByPeriodSchema = z.object({
     .describe(
       "Starting period in yyyymm format, e.g., '202001' for January 2020. Cannot be earlier than 199701 (January 1997)."
     ),
-  endDate: z
+  endDate: z.coerce
     .string()
     .regex(
       YEAR_MONTH_COMPACT_PATTERN,
@@ -160,10 +160,11 @@ export const getAllIndicesSchema = z.object({
 })
 
 export const getIndexDataSchema = z.object({
-  code: z
+  code: z.coerce
     .string()
+    .regex(/^\d+$/, "code must be a numeric index code, e.g. '120010'")
     .describe(
-      "The index code (numeric string) you want price data for. Get this code first from getSubjectCodes or getIndexTopics. Example: '120010' for general CPI."
+      "The index code you want price data for (numeric, as string or number). Get this code first from getSubjectCodes or getIndexTopics. Example: '120010' for general CPI."
     ),
   startPeriod: z
     .string()
