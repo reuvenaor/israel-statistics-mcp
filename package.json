@@ -1,6 +1,6 @@
 {
   "name": "@reuvenorg/israel-statistics-mcp",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Model Context Protocol (MCP) server for Israeli Central Bureau of Statistics (CBS) price indices and economic data. Provides 9 tools for retrieving, analyzing, and calculating Israeli economic statistics including CPI, housing prices, producer indices, and inflation calculations.",
   "mcpName": "io.github.reuvenaor/israel-statistics-mcp",
   "type": "module",
@@ -108,7 +108,6 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.7.0",
     "@changesets/cli": "^2.31.0",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.13.2",
