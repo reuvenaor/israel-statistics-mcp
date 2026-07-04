@@ -1,34 +1,35 @@
-name: Release
+name: Version PR
 
-# Single publish path: changesets on main. Docker and MCP Registry publishing
-# are chained jobs here (not `on: release`) because GITHUB_TOKEN-created
-# releases do not trigger downstream workflows.
+# ZERO configured secrets by design (uses only the automatic GITHUB_TOKEN).
+# This workflow ONLY maintains the changesets "Version Packages" PR
+# (version bump + CHANGELOG). Publishing is done locally by the maintainer
+# with web-authenticated accounts:
+#
+#   1. Merge the Version Packages PR, then `git pull` on main
+#   2. `pnpm release`            -> builds + publishes to npm (npm login/web auth)
+#      `git push --follow-tags`
+#   3. `docker buildx build --platform linux/amd64,linux/arm64 \
+#         -t reuvenaor/israel-statistics-mcp:<version> \
+#         -t reuvenaor/israel-statistics-mcp:latest --push .`
+#      (Docker Desktop web-authenticated)
+#   4. After npm + Docker exist: `mcp-publisher login github && mcp-publisher publish`
+#      (server.json version is maintained in-repo — see the release checklist)
 on:
   push:
     branches: [main]
-  workflow_dispatch:
-    inputs:
-      skip_live:
-        description: Skip the live CBS smoke gate (use during CBS outages)
-        type: boolean
-        default: false
 
 permissions:
   contents: write
   pull-requests: write
-  id-token: write # npm provenance + MCP Registry OIDC
 
 concurrency:
   group: release
   cancel-in-progress: false
 
 jobs:
-  release:
-    name: Version / publish to npm
+  version-pr:
+    name: Maintain Version Packages PR
     runs-on: ubuntu-latest
-    outputs:
-      published: ${{ steps.changesets.outputs.published }}
-      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
@@ -38,85 +39,10 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint && pnpm typecheck && pnpm test && pnpm build
-      - name: Live CBS smoke gate
-        if: ${{ !inputs.skip_live }}
-        run: node scripts/smoke.mjs --live
-      - name: Publish with changesets
-        id: changesets
+      - name: Open or update the Version Packages PR
         uses: changesets/action@3841a0683d3cfa6dae0f9bb335290003010fe3f0 # v1.9.0
         with:
           version: pnpm run version
-          publish: pnpm run release
-          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
-      - name: Extract published version
-        id: version
-        if: steps.changesets.outputs.published == 'true'
-        env:
-          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
-        run: echo "version=$(echo "$PUBLISHED_PACKAGES" | jq -r '.[0].version')" >> "$GITHUB_OUTPUT"
-
-  docker:
-    name: Publish Docker image
-    needs: release
-    if: needs.release.outputs.published == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
-      - uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
-      - uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
-        id: meta
-        with:
-          images: reuvenaor/israel-statistics-mcp
-          tags: |
-            type=raw,value=latest
-            type=semver,pattern={{version}},value=v${{ needs.release.outputs.version }}
-            type=semver,pattern={{major}}.{{minor}},value=v${{ needs.release.outputs.version }}
-      - uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          provenance: mode=max
-          sbom: true
-      - name: Sync README to Docker Hub
-        uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: reuvenaor/israel-statistics-mcp
-
-  mcp-registry:
-    name: Publish to MCP Registry
-    needs: [release, docker]
-    if: needs.release.outputs.published == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - name: Download mcp-publisher
-        run: |
-          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).tar.gz" | tar xz mcp-publisher
-      - name: Sync server.json version to the release
-        run: |
-          jq --arg v "${{ needs.release.outputs.version }}" \
-            '.version = $v | .packages[].version = $v | (.packages[] | select(.registryType == "oci") | .identifier) |= (split(":")[0] + ":" + $v)' \
-            server.json > server.json.tmp && mv server.json.tmp server.json
-          cat server.json
-      - name: Publish
-        run: |
-          ./mcp-publisher login github-oidc
-          ./mcp-publisher publish
