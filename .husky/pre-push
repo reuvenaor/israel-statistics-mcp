@@ -1,0 +1,2 @@
+# Offline gates only — live CBS tests are opt-in (pnpm test:live)
+pnpm typecheck && pnpm test
