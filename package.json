@@ -26,9 +26,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reuvenaor/israel-statistics-mcp.git",
-    "directory": "israel-statistics-mcp"
+    "url": "git+https://github.com/reuvenaor/israel-statistics-mcp.git"
   },
+  "sideEffects": false,
   "bugs": {
     "url": "https://github.com/reuvenaor/israel-statistics-mcp/issues"
   },
