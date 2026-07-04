@@ -4,7 +4,10 @@ import z from "zod"
 // get_catalog_chapters is the authoritative list at any moment.
 export const chapterSchema = z
   .string()
-  .regex(/^[a-z]{1,3}$/, "chapter must be a short lowercase id like 'a' or 'aa'")
+  .regex(
+    /^[a-z]{1,3}$/,
+    "chapter must be a short lowercase id like 'a' or 'aa'"
+  )
   .describe(
     "Index chapter id. Known chapters: a=Consumer Price Index (groceries, retail) | aa=Housing Market Index | b=Producer Price Index Industrial | ba=Producer Price Index Exports | bb=Producer Price Index Services | c=Residential Building Input | ca=Commercial Building Input | d=Road Construction Input | e=Agriculture Input | f=Bus Input | fa=Public Minibus Input — call get_catalog_chapters for the current full list. Leave empty for all."
   )

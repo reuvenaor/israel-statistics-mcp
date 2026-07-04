@@ -26,9 +26,9 @@ describe("live: catalog discovery chain", () => {
   it("lists chapters in Hebrew by default", async () => {
     const result = await getCatalogChapters({})
     expect(result.chapters.length).toBeGreaterThanOrEqual(11)
-    expect(
-      result.chapters.some((c) => HEBREW.test(c.chapterName ?? ""))
-    ).toBe(true)
+    expect(result.chapters.some((c) => HEBREW.test(c.chapterName ?? ""))).toBe(
+      true
+    )
   })
 
   it("searches topics by keyword in English", async () => {

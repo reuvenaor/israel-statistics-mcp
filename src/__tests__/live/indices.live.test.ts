@@ -78,9 +78,9 @@ describe("live: main indices", () => {
     expect(result.indices.length).toBeGreaterThan(0)
     expect(result.updateDate).toBeTruthy()
     for (const index of result.indices) {
-      expect(
-        index.percent === null || Number.isFinite(index.percent)
-      ).toBe(true)
+      expect(index.percent === null || Number.isFinite(index.percent)).toBe(
+        true
+      )
       for (const value of index.indices) {
         expect(value.value === null || Number.isFinite(value.value)).toBe(true)
       }

@@ -194,10 +194,20 @@ describe("request schema validation", () => {
   })
 
   it("rejects non-positive calculator values", () => {
-    const base = { indexCode: 120010, fromDate: "2020-01-01", toDate: "2024-01-01" }
-    expect(getIndexCalculatorSchema.safeParse({ ...base, value: -5 }).success).toBe(false)
-    expect(getIndexCalculatorSchema.safeParse({ ...base, value: 0 }).success).toBe(false)
-    expect(getIndexCalculatorSchema.safeParse({ ...base, value: 100 }).success).toBe(true)
+    const base = {
+      indexCode: 120010,
+      fromDate: "2020-01-01",
+      toDate: "2024-01-01",
+    }
+    expect(
+      getIndexCalculatorSchema.safeParse({ ...base, value: -5 }).success
+    ).toBe(false)
+    expect(
+      getIndexCalculatorSchema.safeParse({ ...base, value: 0 }).success
+    ).toBe(false)
+    expect(
+      getIndexCalculatorSchema.safeParse({ ...base, value: 100 }).success
+    ).toBe(true)
   })
 
   it("rejects malformed by-period dates", () => {
@@ -228,7 +238,9 @@ describe("request schema validation", () => {
 
 describe("empty XML result sets (must not throw 'Required')", () => {
   it("parses the real empty <indices/> payload to an empty list", async () => {
-    const parsed = await parseXmlLikeFetcher(fixture("price-selected-b-empty.xml"))
+    const parsed = await parseXmlLikeFetcher(
+      fixture("price-selected-b-empty.xml")
+    )
     const result = mainIndicesByPeriodXmlResponseSchema.parse(parsed)
     expect(result.indices.ind).toEqual([])
   })
@@ -239,7 +251,9 @@ describe("empty XML result sets (must not throw 'Required')", () => {
   })
 
   it("returns a clean summary for an empty period range", async () => {
-    const parsed = await parseXmlLikeFetcher(fixture("price-selected-b-empty.xml"))
+    const parsed = await parseXmlLikeFetcher(
+      fixture("price-selected-b-empty.xml")
+    )
     mockSecureFetch.mockResolvedValue(
       mainIndicesByPeriodXmlResponseSchema.parse(parsed)
     )
@@ -322,7 +336,9 @@ describe("housing warnings", () => {
   })
 
   it("does NOT trigger on ordinary CPI codes or names", () => {
-    expect(checkHousingWarnings({ code: "120010" }).isHousingRelated).toBe(false)
+    expect(checkHousingWarnings({ code: "120010" }).isHousingRelated).toBe(
+      false
+    )
     expect(
       checkHousingWarnings({ indexName: "Fresh vegetables" }).isHousingRelated
     ).toBe(false)
@@ -334,7 +350,8 @@ describe("housing warnings", () => {
         .isHousingRelated
     ).toBe(true)
     expect(
-      checkHousingWarnings({ indexName: "Prices of Dwellings" }).isHousingRelated
+      checkHousingWarnings({ indexName: "Prices of Dwellings" })
+        .isHousingRelated
     ).toBe(true)
   })
 

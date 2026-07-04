@@ -59,9 +59,7 @@ export function getProvisionalWindow(now: Date = new Date()): {
   }
 }
 
-export function checkHousingWarnings(
-  input: HousingCheckInput
-): HousingWarning {
+export function checkHousingWarnings(input: HousingCheckInput): HousingWarning {
   const { chapter, code, indexName, targetPeriod } = input
   const isHousingRelated =
     chapter === "aa" ||

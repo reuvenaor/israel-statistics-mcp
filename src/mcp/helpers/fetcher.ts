@@ -194,7 +194,8 @@ function formatZodIssues(error: z.ZodError): string {
     .slice(0, 8)
     .map((issue) => `${issue.path.join(".") || "(root)"}: ${issue.message}`)
     .join("; ")
-  const extra = error.issues.length > 8 ? ` (+${error.issues.length - 8} more)` : ""
+  const extra =
+    error.issues.length > 8 ? ` (+${error.issues.length - 8} more)` : ""
   return issues + extra
 }
 

@@ -67,7 +67,9 @@ export const indexDataResponseSchema = z
         })
       )
       .nullable()
-      .describe("Monthly index data (null when the code is quarterly or no data matches)"),
+      .describe(
+        "Monthly index data (null when the code is quarterly or no data matches)"
+      ),
     quarter: z
       .array(z.unknown())
       .nullable()
@@ -315,47 +317,49 @@ export const mainIndicesXmlResponseSchema = z.object({
         .array(z.string())
         .default([])
         .describe("Last update timestamp of the indices data (ISO format)"),
-      date: z.array(
-        z.object({
-          year: z
-            .array(z.string())
-            .describe("Year of the index data (YYYY format)"),
-          month: z
-            .array(z.string())
-            .describe("Month name of the index data (e.g., 'June', 'July')"),
-          code: z.array(
-            z.object({
-              code: z
-                .array(z.string())
-                .describe("Unique numeric index code identifier"),
-              name: z
-                .array(z.string())
-                .describe("Full descriptive name of the index"),
-              percent: z
-                .array(z.string())
-                .describe("Monthly percentage change of the index as string"),
-              index: z.array(
-                z.object({
-                  _: z
-                    .string()
-                    .describe("Index value for this specific base period"),
-                  base: z
-                    .array(z.string())
-                    .describe(
-                      "Base period description (e.g., 'Average 2024', 'Average 2022')"
-                    ),
-                  chainingCoefficient: z
-                    .array(z.string())
-                    .optional()
-                    .describe(
-                      "Coefficient used for linking indices across different base periods"
-                    ),
-                })
-              ),
-            })
-          ),
-        })
-      ).default([]),
+      date: z
+        .array(
+          z.object({
+            year: z
+              .array(z.string())
+              .describe("Year of the index data (YYYY format)"),
+            month: z
+              .array(z.string())
+              .describe("Month name of the index data (e.g., 'June', 'July')"),
+            code: z.array(
+              z.object({
+                code: z
+                  .array(z.string())
+                  .describe("Unique numeric index code identifier"),
+                name: z
+                  .array(z.string())
+                  .describe("Full descriptive name of the index"),
+                percent: z
+                  .array(z.string())
+                  .describe("Monthly percentage change of the index as string"),
+                index: z.array(
+                  z.object({
+                    _: z
+                      .string()
+                      .describe("Index value for this specific base period"),
+                    base: z
+                      .array(z.string())
+                      .describe(
+                        "Base period description (e.g., 'Average 2024', 'Average 2022')"
+                      ),
+                    chainingCoefficient: z
+                      .array(z.string())
+                      .optional()
+                      .describe(
+                        "Coefficient used for linking indices across different base periods"
+                      ),
+                  })
+                ),
+              })
+            ),
+          })
+        )
+        .default([]),
     })
   ),
 })
