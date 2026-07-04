@@ -1,4 +1,3 @@
-import tsconfigPaths from "vite-tsconfig-paths"
 import { configDefaults, defineConfig } from "vitest/config"
 
 export default defineConfig({
@@ -10,9 +9,4 @@ export default defineConfig({
       "**/templates/**",
     ],
   },
-  plugins: [
-    tsconfigPaths({
-      ignoreConfigErrors: true,
-    }),
-  ],
 })

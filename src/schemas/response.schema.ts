@@ -429,80 +429,6 @@ export const catalogChaptersResponseSchema = z.object({
     .describe("Array of all available index chapters"),
 })
 
-// Index Data response schema (XML API - for individual index time series)
-export const indexDataXmlResponseSchema = z.object({
-  indices: z
-    .object({
-      UpdateDate: z.array(z.string()).describe("Last update timestamp"),
-      data: z.array(
-        z.object({
-          period: z.array(z.string()).describe("Time period (mm-yyyy format)"),
-          value: z.array(z.string()).describe("Index value for this period"),
-          coefficient: z
-            .array(z.string())
-            .optional()
-            .describe("Linkage coefficient if requested"),
-        })
-      ),
-    })
-    .describe("Time series data for a specific index code"),
-})
-
-// Index Calculator response schema (XML API)
-export const indexCalculatorXmlResponseSchema = z.object({
-  calculator: z
-    .object({
-      originalValue: z
-        .array(z.string())
-        .describe("Original amount provided for calculation"),
-      linkedValue: z.array(z.string()).describe("Inflation-adjusted amount"),
-      fromDate: z.array(z.string()).describe("Starting date of calculation"),
-      toDate: z.array(z.string()).describe("End date of calculation"),
-      indexCode: z
-        .array(z.string())
-        .describe("Index code used for calculation"),
-      currency: z.array(z.string()).describe("Currency type used"),
-    })
-    .describe("Result of index linkage calculation for inflation adjustment"),
-})
-
-// Statistics Calculation response schema (for calculateStatistics endpoint)
-export const statisticsResponseSchema = z.object({
-  month: z
-    .array(
-      z.object({
-        code: z.number().describe("Index code"),
-        name: z.string().describe("Index name"),
-        date: z
-          .array(
-            z.object({
-              year: z.number().describe("Year of the data point"),
-              percent: z.number().describe("Monthly percentage change"),
-              percentYear: z.number().describe("Annual percentage change"),
-              currBase: z.object({
-                baseDesc: z.string().describe("Base period description"),
-                value: z.number().describe("Index value for current base"),
-              }),
-              prevBase: z
-                .any()
-                .nullable()
-                .describe("Previous base information"),
-              month: z.number().describe("Month number (1-12)"),
-              monthDesc: z.string().describe("Month name"),
-            })
-          )
-          .describe("Array of monthly data points"),
-      })
-    )
-    .nullable()
-    .describe("Monthly data points array"),
-  quarter: z
-    .array(z.any())
-    .nullable()
-    .describe("Quarterly data points (null for monthly data)"),
-  paging: paginationSchema,
-})
-
 // Type exports
 export type IndexTopicsResponse = z.infer<typeof indexTopicsResponseSchema>
 export type IndexDataResponse = z.infer<typeof indexDataResponseSchema>
@@ -526,8 +452,4 @@ export type TransformedMainIndicesByPeriodResponse = z.infer<
 >
 export type CatalogChaptersResponse = z.infer<
   typeof catalogChaptersResponseSchema
->
-export type IndexDataXmlResponse = z.infer<typeof indexDataXmlResponseSchema>
-export type IndexCalculatorXmlResponse = z.infer<
-  typeof indexCalculatorXmlResponseSchema
 >
