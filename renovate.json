@@ -16,14 +16,14 @@
       "allowedVersions": "<4.0.0"
     },
     {
-      "description": "eslint 10 blocked until typescript-eslint supports it",
-      "matchPackageNames": ["eslint"],
-      "allowedVersions": "<10.0.0"
+      "description": "typescript tracks typescript-eslint's supported window",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<6.1.0"
     },
     {
-      "description": "typescript majors reviewed manually (tsup/typescript-eslint support)",
-      "matchPackageNames": ["typescript"],
-      "allowedVersions": "<6.0.0"
+      "description": "@types/node tracks the newest supported runtime (Docker/CI = Node 24 LTS)",
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<25.0.0"
     }
   ],
   "lockFileMaintenance": {

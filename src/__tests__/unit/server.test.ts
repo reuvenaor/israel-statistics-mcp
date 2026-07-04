@@ -68,7 +68,7 @@ describe("MCP server (InMemoryTransport round-trip)", () => {
     ])
     for (const tool of tools) {
       expect(tool.title, tool.name).toBeTruthy()
-      expect(tool.description!.length, tool.name).toBeGreaterThan(40)
+      expect(tool.description?.length ?? 0, tool.name).toBeGreaterThan(40)
       expect(tool.annotations?.readOnlyHint, tool.name).toBe(true)
       expect(tool.annotations?.openWorldHint, tool.name).toBe(true)
       expect(tool.inputSchema, tool.name).toBeDefined()
