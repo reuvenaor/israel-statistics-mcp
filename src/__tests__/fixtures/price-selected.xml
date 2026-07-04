@@ -1,0 +1,567 @@
+<?xml version="1.0"?>
+<indices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://api.cbs.gov.il/xsd/price/indices_base_heb.xsd" UpdateDate="2026-07-04T19:20:31">
+  <date year="2026" month="מאי">
+    <code code="120010">
+      <name>מדד המחירים לצרכן - כללי</name>
+      <percent>-0.3</percent>
+      <index base="2024 ממוצע">104.8</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.074">112.5552</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.059">119.1959568</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.003">119.5535446704</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.01">120.749080117104</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.989">119.420840235816</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.02">121.809257040532</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.052">128.14333840664</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.061">135.960082049445</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.051">142.894046233967</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.038">148.324019990857</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.068">158.410053350236</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.064">168.548296764651</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.581">266.474857184913</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.421">645.135629244674</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.775">1145.1157419093</index>
+      <index base="1980 ממוצע" chainingCoefficient="225">257651.041929591</index>
+      <index base="1976 ממוצע" chainingCoefficient="8.349">2151128.54907016</index>
+      <index base="1969 ממוצע" chainingCoefficient="4.112">8845440.59377649</index>
+      <index base="1964 ממוצע" chainingCoefficient="1.237">10941810.0145015</index>
+      <index base="1959 ינואר" chainingCoefficient="1.347">14738618.0895336</index>
+      <index base="1951 ספטמבר" chainingCoefficient="2.753">40575415.6004859</index>
+    </code>
+    <code code="120020">
+      <name>המדד ללא ירקות ופירות</name>
+      <percent>-0.2</percent>
+      <index base="2024 ממוצע">104.8</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.071">112.2408</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.06">118.975248</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.001">119.094223248</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.009">120.166071257232</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.987">118.603912330888</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.02">120.975990577506</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.054">127.508694068691</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.062">135.41423310095</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.046">141.643287823594</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.037">146.884089473067</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.068">156.872207557235</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.064">166.912028840898</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.587">264.889389770505</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.474">655.33635029223</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.749">1146.18327666111</index>
+      <index base="1980 ממוצע" chainingCoefficient="225.9">258922.802197745</index>
+    </code>
+    <code code="110040">
+      <name>המדד ללא דיור</name>
+      <percent>-0.6</percent>
+      <index base="2024 ממוצע">103.9</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.067">110.8613</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.059">117.4021167</index>
+      <index base="2018 ממוצע" chainingCoefficient="0.993">116.5803018831</index>
+      <index base="2016 ממוצע" chainingCoefficient="1">116.5803018831</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.97">113.082892826607</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.009">114.100638862046</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.038">118.436463138804</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.03">121.989557032968</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.062">129.552909569012</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.068">138.362507419705</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.045">144.588820253592</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.08">156.155925873879</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.493">233.140797329702</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.184">509.179501368069</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.841">937.399462018615</index>
+      <index base="1980 ממוצע" chainingCoefficient="214.9">201447.1443878</index>
+    </code>
+    <code code="120030">
+      <name>המדד ללא ירקות ופירות וללא דיור</name>
+      <percent>-0.6</percent>
+      <index base="2024 ממוצע">103.8</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.063">110.3394</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.06">116.959764</index>
+      <index base="2018 ממוצע" chainingCoefficient="0.99">115.79016636</index>
+      <index base="2016 ממוצע" chainingCoefficient="0.999">115.67437619364</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.967">111.85712177925</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.007">112.640121631705</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.039">117.033086375341</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.029">120.427045880226</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.055">127.050533403638</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.069">135.817020208489</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.044">141.792969097663</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.081">153.278199594574</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.496">229.304186593482</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.229">511.119031916872</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.811">925.636566801455</index>
+      <index base="1980 ממוצע" chainingCoefficient="215.2">199196.989175673</index>
+    </code>
+    <code code="110045">
+      <name>המדד ללא אנרגיה</name>
+      <percent>-0.2</percent>
+      <index base="2024 ממוצע">104.8</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.073">112.4504</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.054">118.5227216</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.009">119.5894260944</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.007">120.426552077061</index>
+      <index base="2014 ממוצע" chainingCoefficient="1.002">120.667405181215</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.021">123.20142069002</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.043">128.499081779691</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.067">137.108520258931</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.046">143.415512190841</index>
+    </code>
+    <code code="170010">
+      <name>B,C מדד מחירי תפוקת התעשייה וכרייה וחציבה</name>
+      <percent>-1.5</percent>
+      <index base="2020 ממוצע">121.6</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.885">107.616</index>
+      <index base="2005 ממוצע" chainingCoefficient="1.312">141.192192</index>
+      <index base="1994 ממוצע" chainingCoefficient="1.791">252.875215872</index>
+    </code>
+    <code code="170020">
+      <name>מדד מחירי תפוקת התעשייה וכרייה וחציבה (ללא דלקים)</name>
+      <percent>-0.6</percent>
+      <index base="2020 ממוצע">115.3</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.998">115.0694</index>
+      <index base="2005 ממוצע" chainingCoefficient="1.255">144.412097</index>
+      <index base="1994 ממוצע" chainingCoefficient="1.706">246.367037482</index>
+      <index base="1988 ממוצע" chainingCoefficient="2.015">496.42958052623</index>
+      <index base="1977 ממוצע" chainingCoefficient="2910.1">1444659.72228938</index>
+    </code>
+    <code code="170030">
+      <name>C   מדד מחירי תפוקת התעשייה</name>
+      <percent>-1.5</percent>
+      <index base="2020 ממוצע">122.7</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.885">108.5895</index>
+    </code>
+    <code code="170050">
+      <name>מדד מחירי תפוקת התעשייה (ללא דלקים)</name>
+      <percent>-0.5</percent>
+      <index base="2020 ממוצע">116.2</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.002">116.4324</index>
+    </code>
+    <code code="200010">
+      <name>מדד מחירי תשומה בבנייה למגורים - כללי</name>
+      <percent>0.6</percent>
+      <index base="2025 יולי">103.4</index>
+      <index base="2011 יולי" chainingCoefficient="1.387">143.4158</index>
+      <index base="2004 ינואר" chainingCoefficient="1.323">189.7391034</index>
+      <index base="1992 ינואר" chainingCoefficient="2.048">388.5856837632</index>
+      <index base="1983 אוקטובר" chainingCoefficient="49.091">19076.0598016193</index>
+      <index base="1975 אפריל" chainingCoefficient="176.512">3367153.46770342</index>
+      <index base="1968 ממוצע" chainingCoefficient="3.434">11562805.0080935</index>
+      <index base="1964 ינואר" chainingCoefficient="1.259">14557571.5051898</index>
+      <index base="1950 יולי" chainingCoefficient="6.68">97244577.6546676</index>
+    </code>
+    <code code="800010">
+      <name>מדד מחירי תשומה בבנייה למבני מסחר ומשרדים - כללי</name>
+      <percent>0.2</percent>
+      <index base="2012 ינואר">135.7</index>
+    </code>
+    <code code="240010">
+      <name>מדד מחירי תשומה בסלילה וגישור - כללי</name>
+      <percent>0.3</percent>
+      <index base="2010 ינואר">150.1</index>
+      <index base="1996 ינואר" chainingCoefficient="2.262">339.5262</index>
+      <index base="1981 מאי" chainingCoefficient="468.39">159030.676818</index>
+      <index base="1972 ממוצע" chainingCoefficient="82.016">13043059.9899051</index>
+      <index base="1966 ינואר" chainingCoefficient="1.542">20112398.5044336</index>
+    </code>
+    <code code="260010">
+      <name>מדד מחירי תשומה בענף החקלאות - כללי</name>
+      <percent>-1.2</percent>
+      <index base="2020 ממוצע">118.9</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.758">209.0262</index>
+      <index base="1986 ממוצע" chainingCoefficient="3.987">833.3874594</index>
+      <index base="1975 1976" chainingCoefficient="2909">2424324.1193946</index>
+    </code>
+    <code code="440010">
+      <name>מדד מחירי תשומה באוטובוסים - כללי (ללא שירותי דיור)</name>
+      <percent>-0.8</percent>
+      <index base="2020 ינואר">141.3</index>
+      <index base="2007 ינואר" chainingCoefficient="1.534">216.7542</index>
+      <index base="1993 אוקטובר-דצמבר" chainingCoefficient="2.41">522.377622</index>
+    </code>
+    <code code="432010">
+      <name>מדד מחירי תשומה באוטובוסים זעירים ציבוריים - כללי (ללא שירותי דיור וללא התמורה למשרות שכיר)</name>
+      <percent>-1.5</percent>
+      <index base="2020 מאי">140.4</index>
+      <index base="2008 ינואר" chainingCoefficient="1.331">186.8724</index>
+    </code>
+    <code code="432005">
+      <name>מדד מחירי תשומה באוטובוסים זעירים ציבוריים - כללי (ללא שירותי דיור)</name>
+      <percent>-0.5</percent>
+      <index base="2020 מאי">134.8</index>
+    </code>
+  </date>
+  <date year="2026" month="אפריל">
+    <code code="120010">
+      <name>מדד המחירים לצרכן - כללי</name>
+      <percent>1.2</percent>
+      <index base="2024 ממוצע">105.1</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.074">112.8774</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.059">119.5371666</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.003">119.8957780998</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.01">121.094735880798</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.989">119.762693786109</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.02">122.157947661831</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.052">128.510160940247</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.061">136.349280757602</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.051">143.303094076239</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.038">148.748611651136</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.068">158.863517243414</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.064">169.030782346992</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.581">267.237666890595</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.421">646.98239154213</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.775">1148.39374498728</index>
+      <index base="1980 ממוצע" chainingCoefficient="225">258388.592622138</index>
+      <index base="1976 ממוצע" chainingCoefficient="8.349">2157286.35980223</index>
+      <index base="1969 ממוצע" chainingCoefficient="4.112">8870761.51150678</index>
+      <index base="1964 ממוצע" chainingCoefficient="1.237">10973131.9897339</index>
+      <index base="1959 ינואר" chainingCoefficient="1.347">14780808.7901715</index>
+      <index base="1951 ספטמבר" chainingCoefficient="2.753">40691566.5993423</index>
+    </code>
+    <code code="120020">
+      <name>המדד ללא ירקות ופירות</name>
+      <percent>1.1</percent>
+      <index base="2024 ממוצע">105</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.071">112.455</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.06">119.2023</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.001">119.3215023</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.009">120.3953958207</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.987">118.830255675031</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.02">121.206860788531</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.054">127.752031271112</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.062">135.672657209921</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.046">141.913599441578</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.037">147.164402620916</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.068">157.171581999138</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.064">167.230563247083</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.587">265.394903873121</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.474">656.586992182101</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.749">1148.37064932649</index>
+      <index base="1980 ממוצע" chainingCoefficient="225.9">259416.929682855</index>
+    </code>
+    <code code="110040">
+      <name>המדד ללא דיור</name>
+      <percent>1.6</percent>
+      <index base="2024 ממוצע">104.5</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.067">111.5015</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.059">118.0800885</index>
+      <index base="2018 ממוצע" chainingCoefficient="0.993">117.2535278805</index>
+      <index base="2016 ממוצע" chainingCoefficient="1">117.2535278805</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.97">113.735922044085</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.009">114.759545342482</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.038">119.120408065496</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.03">122.694020307461</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.062">130.301049566524</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.068">139.161520937047</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.045">145.423789379214</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.08">157.057692529551</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.493">234.48713494662</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.184">512.119902723419</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.841">942.812740913814</index>
+      <index base="1980 ממוצע" chainingCoefficient="214.9">202610.458022379</index>
+    </code>
+    <code code="120030">
+      <name>המדד ללא ירקות ופירות וללא דיור</name>
+      <percent>1.6</percent>
+      <index base="2024 ממוצע">104.4</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.063">110.9772</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.06">117.635832</index>
+      <index base="2018 ממוצע" chainingCoefficient="0.99">116.45947368</index>
+      <index base="2016 ממוצע" chainingCoefficient="0.999">116.34301420632</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.967">112.503694737511</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.007">113.291220600674</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.039">117.7095782041</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.029">121.123155972019</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.055">127.78492955048</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.069">136.602089689463</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.044">142.6125816358</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.081">154.1642007483</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.496">230.629644319456</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.229">514.073477188068</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.811">930.987067187591</index>
+      <index base="1980 ממוצע" chainingCoefficient="215.2">200348.41685877</index>
+    </code>
+    <code code="110045">
+      <name>המדד ללא אנרגיה</name>
+      <percent>0.9</percent>
+      <index base="2024 ממוצע">105</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.073">112.665</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.054">118.74891</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.009">119.81765019</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.007">120.65637374133</index>
+      <index base="2014 ממוצע" chainingCoefficient="1.002">120.897686488813</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.021">123.436537905078</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.043">128.744309034996</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.067">137.370177740341</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.046">143.689205916396</index>
+    </code>
+    <code code="170010">
+      <name>B,C מדד מחירי תפוקת התעשייה וכרייה וחציבה</name>
+      <percent>3.7</percent>
+      <index base="2020 ממוצע">123.4</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.885">109.209</index>
+      <index base="2005 ממוצע" chainingCoefficient="1.312">143.282208</index>
+      <index base="1994 ממוצע" chainingCoefficient="1.791">256.618434528</index>
+    </code>
+    <code code="170020">
+      <name>מדד מחירי תפוקת התעשייה וכרייה וחציבה (ללא דלקים)</name>
+      <percent>0.1</percent>
+      <index base="2020 ממוצע">116</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.998">115.768</index>
+      <index base="2005 ממוצע" chainingCoefficient="1.255">145.28884</index>
+      <index base="1994 ממוצע" chainingCoefficient="1.706">247.86276104</index>
+      <index base="1988 ממוצע" chainingCoefficient="2.015">499.4434634956</index>
+      <index base="1977 ממוצע" chainingCoefficient="2910.1">1453430.42311855</index>
+    </code>
+    <code code="170030">
+      <name>C   מדד מחירי תפוקת התעשייה</name>
+      <percent>3.9</percent>
+      <index base="2020 ממוצע">124.6</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.885">110.271</index>
+    </code>
+    <code code="170050">
+      <name>מדד מחירי תפוקת התעשייה (ללא דלקים)</name>
+      <percent>0.2</percent>
+      <index base="2020 ממוצע">116.8</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.002">117.0336</index>
+    </code>
+    <code code="200010">
+      <name>מדד מחירי תשומה בבנייה למגורים - כללי</name>
+      <percent>1.1</percent>
+      <index base="2025 יולי">102.8</index>
+      <index base="2011 יולי" chainingCoefficient="1.387">142.5836</index>
+      <index base="2004 ינואר" chainingCoefficient="1.323">188.6381028</index>
+      <index base="1992 ינואר" chainingCoefficient="2.048">386.3308345344</index>
+      <index base="1983 אוקטובר" chainingCoefficient="49.091">18965.3669981282</index>
+      <index base="1975 אפריל" chainingCoefficient="176.512">3347614.85957361</index>
+      <index base="1968 ממוצע" chainingCoefficient="3.434">11495709.4277758</index>
+      <index base="1964 ינואר" chainingCoefficient="1.259">14473098.1695697</index>
+      <index base="1950 יולי" chainingCoefficient="6.68">96680295.7727256</index>
+    </code>
+    <code code="800010">
+      <name>מדד מחירי תשומה בבנייה למבני מסחר ומשרדים - כללי</name>
+      <percent>1</percent>
+      <index base="2012 ינואר">135.4</index>
+    </code>
+    <code code="240010">
+      <name>מדד מחירי תשומה בסלילה וגישור - כללי</name>
+      <percent>2.5</percent>
+      <index base="2010 ינואר">149.7</index>
+      <index base="1996 ינואר" chainingCoefficient="2.262">338.6214</index>
+      <index base="1981 מאי" chainingCoefficient="468.39">158606.877546</index>
+      <index base="1972 ממוצע" chainingCoefficient="82.016">13008301.6688127</index>
+      <index base="1966 ינואר" chainingCoefficient="1.542">20058801.1733092</index>
+    </code>
+    <code code="260010">
+      <name>מדד מחירי תשומה בענף החקלאות - כללי</name>
+      <percent>1.9</percent>
+      <index base="2020 ממוצע">120.3</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.758">211.4874</index>
+      <index base="1986 ממוצע" chainingCoefficient="3.987">843.2002638</index>
+      <index base="1975 1976" chainingCoefficient="2909">2452869.5673942</index>
+    </code>
+    <code code="440010">
+      <name>מדד מחירי תשומה באוטובוסים - כללי (ללא שירותי דיור)</name>
+      <percent>6.2</percent>
+      <index base="2020 ינואר">142.4</index>
+      <index base="2007 ינואר" chainingCoefficient="1.534">218.4416</index>
+      <index base="1993 אוקטובר-דצמבר" chainingCoefficient="2.41">526.444256</index>
+    </code>
+    <code code="432010">
+      <name>מדד מחירי תשומה באוטובוסים זעירים ציבוריים - כללי (ללא שירותי דיור וללא התמורה למשרות שכיר)</name>
+      <percent>9.3</percent>
+      <index base="2020 מאי">142.5</index>
+      <index base="2008 ינואר" chainingCoefficient="1.331">189.6675</index>
+    </code>
+    <code code="432005">
+      <name>מדד מחירי תשומה באוטובוסים זעירים ציבוריים - כללי (ללא שירותי דיור)</name>
+      <percent>5.4</percent>
+      <index base="2020 מאי">135.5</index>
+    </code>
+  </date>
+  <date year="2026" month="מרס">
+    <code code="120010">
+      <name>מדד המחירים לצרכן - כללי</name>
+      <percent>0.4</percent>
+      <index base="2024 ממוצע">103.9</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.074">111.5886</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.059">118.1723274</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.003">118.5268443822</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.01">119.712112826022</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.989">118.395279584936</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.02">120.763185176634</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.052">127.042870805819</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.061">134.792485924974</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.051">141.666902707148</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.038">147.05024501002</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.068">157.049661670701</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.064">167.100840017626</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.581">264.186428067867</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.421">639.595342352305</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.775">1135.28173267534</index>
+      <index base="1980 ממוצע" chainingCoefficient="225">255438.389851952</index>
+      <index base="1976 ממוצע" chainingCoefficient="8.349">2132655.11687395</index>
+      <index base="1969 ממוצע" chainingCoefficient="4.112">8769477.84058567</index>
+      <index base="1964 ממוצע" chainingCoefficient="1.237">10847844.0888045</index>
+      <index base="1959 ינואר" chainingCoefficient="1.347">14612045.9876196</index>
+      <index base="1951 ספטמבר" chainingCoefficient="2.753">40226962.6039168</index>
+    </code>
+    <code code="120020">
+      <name>המדד ללא ירקות ופירות</name>
+      <percent>0.3</percent>
+      <index base="2024 ממוצע">103.9</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.071">111.2769</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.06">117.953514</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.001">118.071467514</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.009">119.134110721626</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.987">117.585367282245</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.02">119.93707462789</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.054">126.413676657796</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.062">134.251324610579</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.046">140.426885542666</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.037">145.622680307744</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.068">155.525022568671</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.064">165.478624013066</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.587">262.614576308736</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.474">649.708461787812</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.749">1136.34009966688</index>
+      <index base="1980 ממוצע" chainingCoefficient="225.9">256699.228514749</index>
+    </code>
+    <code code="110040">
+      <name>המדד ללא דיור</name>
+      <percent>0.3</percent>
+      <index base="2024 ממוצע">102.9</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.067">109.7943</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.059">116.2721637</index>
+      <index base="2018 ממוצע" chainingCoefficient="0.993">115.4582585541</index>
+      <index base="2016 ממוצע" chainingCoefficient="1">115.4582585541</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.97">111.994510797477</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.009">113.002461394654</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.038">117.296554927651</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.03">120.815451575481</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.062">128.306009573161</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.068">137.030818224135</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.045">143.197205044222</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.08">154.652981447759</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.493">230.896901301505</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.184">504.278832442486</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.841">928.377330526617</index>
+      <index base="1980 ממוצע" chainingCoefficient="214.9">199508.28833017</index>
+    </code>
+    <code code="120030">
+      <name>המדד ללא ירקות ופירות וללא דיור</name>
+      <percent>0.2</percent>
+      <index base="2024 ממוצע">102.8</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.063">109.2764</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.06">115.832984</index>
+      <index base="2018 ממוצע" chainingCoefficient="0.99">114.67465416</index>
+      <index base="2016 ממוצע" chainingCoefficient="0.999">114.55997950584</index>
+      <index base="2014 ממוצע" chainingCoefficient="0.967">110.779500182147</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.007">111.554956683422</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.039">115.905599994076</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.029">119.266862393904</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.055">125.826539825569</index>
+      <index base="2002 ממוצע" chainingCoefficient="1.069">134.508571073533</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.044">140.426948200768</index>
+      <index base="1998 ממוצע" chainingCoefficient="1.081">151.801531005031</index>
+      <index base="1993 ממוצע" chainingCoefficient="1.496">227.095090383526</index>
+      <index base="1987 ממוצע" chainingCoefficient="2.229">506.194956464879</index>
+      <index base="1985 ממוצע" chainingCoefficient="1.811">916.719066157896</index>
+      <index base="1980 ממוצע" chainingCoefficient="215.2">197277.943037179</index>
+    </code>
+    <code code="110045">
+      <name>המדד ללא אנרגיה</name>
+      <percent>0.3</percent>
+      <index base="2024 ממוצע">104.1</index>
+      <index base="2022 ממוצע" chainingCoefficient="1.073">111.6993</index>
+      <index base="2020 ממוצע" chainingCoefficient="1.054">117.7310622</index>
+      <index base="2018 ממוצע" chainingCoefficient="1.009">118.7906417598</index>
+      <index base="2016 ממוצע" chainingCoefficient="1.007">119.622176252119</index>
+      <index base="2014 ממוצע" chainingCoefficient="1.002">119.861420604623</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.021">122.37851043732</index>
+      <index base="2010 ממוצע" chainingCoefficient="1.043">127.640786386125</index>
+      <index base="2008 ממוצע" chainingCoefficient="1.067">136.192719073995</index>
+      <index base="2006 ממוצע" chainingCoefficient="1.046">142.457584151399</index>
+    </code>
+    <code code="170010">
+      <name>B,C מדד מחירי תפוקת התעשייה וכרייה וחציבה</name>
+      <percent>0.8</percent>
+      <index base="2020 ממוצע">119</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.885">105.315</index>
+      <index base="2005 ממוצע" chainingCoefficient="1.312">138.17328</index>
+      <index base="1994 ממוצע" chainingCoefficient="1.791">247.46834448</index>
+    </code>
+    <code code="170020">
+      <name>מדד מחירי תפוקת התעשייה וכרייה וחציבה (ללא דלקים)</name>
+      <percent>0.6</percent>
+      <index base="2020 ממוצע">115.9</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.998">115.6682</index>
+      <index base="2005 ממוצע" chainingCoefficient="1.255">145.163591</index>
+      <index base="1994 ממוצע" chainingCoefficient="1.706">247.649086246</index>
+      <index base="1988 ממוצע" chainingCoefficient="2.015">499.01290878569</index>
+      <index base="1977 ממוצע" chainingCoefficient="2910.1">1452177.46585724</index>
+    </code>
+    <code code="170030">
+      <name>C   מדד מחירי תפוקת התעשייה</name>
+      <percent>0.8</percent>
+      <index base="2020 ממוצע">119.9</index>
+      <index base="2012 ממוצע" chainingCoefficient="0.885">106.1115</index>
+    </code>
+    <code code="170050">
+      <name>מדד מחירי תפוקת התעשייה (ללא דלקים)</name>
+      <percent>0.6</percent>
+      <index base="2020 ממוצע">116.6</index>
+      <index base="2012 ממוצע" chainingCoefficient="1.002">116.8332</index>
+    </code>
+    <code code="200010">
+      <name>מדד מחירי תשומה בבנייה למגורים - כללי</name>
+      <percent>0.2</percent>
+      <index base="2025 יולי">101.7</index>
+      <index base="2011 יולי" chainingCoefficient="1.387">141.0579</index>
+      <index base="2004 ינואר" chainingCoefficient="1.323">186.6196017</index>
+      <index base="1992 ינואר" chainingCoefficient="2.048">382.1969442816</index>
+      <index base="1983 אוקטובר" chainingCoefficient="49.091">18762.430191728</index>
+      <index base="1975 אפריל" chainingCoefficient="176.512">3311794.0780023</index>
+      <index base="1968 ממוצע" chainingCoefficient="3.434">11372700.8638599</index>
+      <index base="1964 ינואר" chainingCoefficient="1.259">14318230.3875996</index>
+      <index base="1950 יולי" chainingCoefficient="6.68">95645778.9891653</index>
+    </code>
+    <code code="800010">
+      <name>מדד מחירי תשומה בבנייה למבני מסחר ומשרדים - כללי</name>
+      <percent>0.1</percent>
+      <index base="2012 ינואר">134</index>
+    </code>
+    <code code="240010">
+      <name>מדד מחירי תשומה בסלילה וגישור - כללי</name>
+      <percent>-0.1</percent>
+      <index base="2010 ינואר">146.1</index>
+      <index base="1996 ינואר" chainingCoefficient="2.262">330.4782</index>
+      <index base="1981 מאי" chainingCoefficient="468.39">154792.684098</index>
+      <index base="1972 ממוצע" chainingCoefficient="82.016">12695476.7789816</index>
+      <index base="1966 ינואר" chainingCoefficient="1.542">19576425.1931896</index>
+    </code>
+    <code code="260010">
+      <name>מדד מחירי תשומה בענף החקלאות - כללי</name>
+      <percent>-0.3</percent>
+      <index base="2020 ממוצע">118.1</index>
+      <index base="2000 ממוצע" chainingCoefficient="1.758">207.6198</index>
+      <index base="1986 ממוצע" chainingCoefficient="3.987">827.7801426</index>
+      <index base="1975 1976" chainingCoefficient="2909">2408012.4348234</index>
+    </code>
+    <code code="440010">
+      <name>מדד מחירי תשומה באוטובוסים - כללי (ללא שירותי דיור)</name>
+      <percent>0.8</percent>
+      <index base="2020 ינואר">134.1</index>
+      <index base="2007 ינואר" chainingCoefficient="1.534">205.7094</index>
+      <index base="1993 אוקטובר-דצמבר" chainingCoefficient="2.41">495.759654</index>
+    </code>
+    <code code="432010">
+      <name>מדד מחירי תשומה באוטובוסים זעירים ציבוריים - כללי (ללא שירותי דיור וללא התמורה למשרות שכיר)</name>
+      <percent>0.9</percent>
+      <index base="2020 מאי">130.4</index>
+      <index base="2008 ינואר" chainingCoefficient="1.331">173.5624</index>
+    </code>
+    <code code="432005">
+      <name>מדד מחירי תשומה באוטובוסים זעירים ציבוריים - כללי (ללא שירותי דיור)</name>
+      <percent>0.7</percent>
+      <index base="2020 מאי">128.5</index>
+    </code>
+  </date>
+</indices>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<indices xsi:noNamespaceSchemaLocation="https://api.cbs.gov.il/xsd/price/indices_base_heb_all.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" UpdateDate="2026-07-04T21:40:48">
+  <chapter name="מדד ומחירים ממוצעים משוק הדירות">
+    <month>
+      <index month="מרס" year="2026" code="40010">
+        <index_name>מחירי דירות</index_name>
+        <percent>-0.3</percent>
+        <index_base base="1993 ממוצע">599.6</index_base>
+        <index_base base="1987 ממוצע" chaining_coefficient="3.736">2240.1056</index_base>
+        <index_base base="1985 ממוצע" chaining_coefficient="1.484">3324.3167104</index_base>
+        <index_base base="1980 ממוצע" chaining_coefficient="262.7">873297.99982208</index_base>
+      </index>
+      <index month="מרס" year="2026" code="60000">
+        <index_name>ירושלים</index_name>
+        <percent>-2</percent>
+        <index_base base="2017 אוקטובר">580.7</index_base>
+      </index>
+      <index month="מרס" year="2026" code="60100">
+        <index_name>צפון</index_name>
+        <percent>-0.2</percent>
+        <index_base base="2017 אוקטובר">666.3</index_base>
+      </index>
+      <index month="מרס" year="2026" code="60200">
+        <index_name>חיפה</index_name>
+        <percent>-1.9</percent>
+        <index_base base="2017 אוקטובר">617.8</index_base>
+      </index>
+      <index month="מרס" year="2026" code="60300">
+        <index_name>מרכז</index_name>
+        <percent>0.2</percent>
+        <index_base base="2017 אוקטובר">590.5</index_base>
+      </index>
+      <index month="מרס" year="2026" code="60400">
+        <index_name>תל אביב</index_name>
+        <percent>0.7</percent>
+        <index_base base="2017 אוקטובר">576</index_base>
+      </index>
+      <index month="מרס" year="2026" code="60500">
+        <index_name>דרום</index_name>
+        <percent>-0.9</percent>
+        <index_base base="2017 אוקטובר">574.6</index_base>
+      </index>
+      <index month="מרס" year="2026" code="70000">
+        <index_name>מדד מחירי דירות חדשות</index_name>
+        <percent>-0.1</percent>
+        <index_base base="2017 אוקטובר">536.9</index_base>
+      </index>
+    </month>
+  </chapter>
+</indices>
