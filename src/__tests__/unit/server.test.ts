@@ -46,11 +46,13 @@ describe("MCP server (InMemoryTransport round-trip)", () => {
     expect(capabilities?.prompts).toBeUndefined()
   })
 
-  it("reports the real package version, not a hardcoded one", () => {
+  it("reports the real package version from package.json", async () => {
+    const { VERSION } = await import("../../pkg")
     const serverVersion = client.getServerVersion()
     expect(serverVersion?.name).toBe("israel-statistics-mcp")
-    expect(serverVersion?.version).not.toBe("1.0.0")
-    expect(serverVersion?.version).toMatch(/^\d+\.\d+\.\d+/)
+    // v0.0.2 hardcoded "1.0.0" while npm said 0.0.2 — the server must
+    // always report the actual package version, whatever it is.
+    expect(serverVersion?.version).toBe(VERSION)
   })
 
   it("lists exactly 9 tools, each with title, annotations, and schemas", async () => {
