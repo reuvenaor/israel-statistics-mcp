@@ -1,8 +1,8 @@
 ---
-"@reuvenorg/israel-statistics-mcp": minor
+"@reuvenorg/israel-statistics-mcp": major
 ---
 
-MCP SDK 1.29 and a modern tool surface: every tool now has a title, read-only
+1.0.0: MCP SDK 1.29 and a modern tool surface. Every tool now has a title, read-only
 annotations, a typed output schema, and returns `structuredContent` alongside
 the (unchanged) JSON text content. The server no longer advertises phantom
 `logging`/`resources` capabilities — published 0.0.2 returned -32601 to
