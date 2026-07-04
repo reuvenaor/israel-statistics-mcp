@@ -198,12 +198,12 @@ function formatZodIssues(error: z.ZodError): string {
   return issues + extra
 }
 
-export async function secureFetch<T>(
+export async function secureFetch<S extends z.ZodTypeAny>(
   endpoint: string,
   params: Record<string, string>,
-  schema: z.ZodType<T>,
+  schema: S,
   globalParams?: GlobalParams
-): Promise<T> {
+): Promise<z.output<S>> {
   const url = new URL(endpoint, API_BASE)
   // `new URL("//host/path", base)` swaps the host — assert after construction.
   if (url.host !== ALLOWED_HOST || url.protocol !== "https:") {

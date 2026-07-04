@@ -17,6 +17,20 @@ export const indexTopicsResponseSchema = z.object({
     .describe("Array of all index chapters available in the CBS system"),
 })
 
+// Previous-base entry: with coef=true CBS returns an ARRAY of these
+// (one per historical base, each carrying the chaining coefficient).
+const prevBaseEntrySchema = z
+  .object({
+    baseDesc: z.string().describe("Base period description"),
+    value: z.number().describe("Index value expressed in this base"),
+    coeff: z
+      .number()
+      .nullable()
+      .optional()
+      .describe("Chaining coefficient to the previous base (with coef=true)"),
+  })
+  .passthrough()
+
 // Index Data response schema (JSON API) - for index/data/price
 export const indexDataResponseSchema = z
   .object({
@@ -24,24 +38,36 @@ export const indexDataResponseSchema = z
       .array(
         z.object({
           code: z.number().describe("Index code"),
-          name: z.string().describe("Index name in Hebrew"),
+          name: z.string().describe("Index name (language follows lang param)"),
           date: z
             .array(
-              z.object({
-                year: z.number().describe("Year"),
-                percent: z.number().describe("Monthly percentage change"),
-                percentYear: z.number().describe("Yearly percentage change"),
-                currBase: currencyBaseSchema,
-                prevBase: currencyBaseSchema.nullable().optional(),
-                month: z.number().describe("Month number"),
-                monthDesc: z.string().describe("Month name in Hebrew"),
-              })
+              z
+                .object({
+                  year: z.number().describe("Year"),
+                  percent: z
+                    .number()
+                    .nullable()
+                    .describe("Monthly percentage change"),
+                  percentYear: z
+                    .number()
+                    .nullable()
+                    .describe("Yearly percentage change"),
+                  currBase: currencyBaseSchema.passthrough(),
+                  // Single object normally; array of bases when coef=true
+                  prevBase: z
+                    .union([prevBaseEntrySchema, z.array(prevBaseEntrySchema)])
+                    .nullable()
+                    .optional(),
+                  month: z.number().describe("Month number"),
+                  monthDesc: z.string().describe("Month name"),
+                })
+                .passthrough()
             )
             .describe("Array of date entries with index values"),
         })
       )
       .nullable()
-      .describe("Monthly index data"),
+      .describe("Monthly index data (null when the code is quarterly or no data matches)"),
     quarter: z
       .array(z.unknown())
       .nullable()
@@ -90,13 +116,32 @@ export const indexCalculatorResponseSchema = z
         to_index_value: z.number().describe("Index value at the to_date"),
         chaining_coefficient: z
           .number()
-          .describe("Coefficient used for chaining between base years"),
-        mult_min: z.number().describe("Minimum multiplication factor"),
-        mult_max: z.number().describe("Maximum multiplication factor"),
-        Koeff: z.number().describe("Additional coefficient factor"),
+          .nullable()
+          .describe(
+            "Coefficient used for chaining between base years (null for some index series)"
+          ),
+        mult_min: z
+          .number()
+          .nullable()
+          .describe(
+            "Minimum multiplication factor (null for index series without min/max bounds, e.g. 110050)"
+          ),
+        mult_max: z
+          .number()
+          .nullable()
+          .describe(
+            "Maximum multiplication factor (null for index series without min/max bounds)"
+          ),
+        Koeff: z
+          .number()
+          .nullable()
+          .describe("Additional coefficient factor (may be null)"),
         change_percent: z
           .number()
-          .describe("Percentage change from original to linked value"),
+          .nullable()
+          .describe(
+            "Percentage change from original to linked value (may be null; compute from from_value/to_value when absent)"
+          ),
       })
       .describe(
         "Calculation results showing original value linked to target date"
@@ -134,7 +179,14 @@ export const chapterTopicsResponseSchema = z
             .string()
             .describe("Descriptive name of the subject/topic area"),
           code: z
-            .any()
+            .array(
+              z
+                .object({
+                  codeId: z.number().describe("Unique numeric index code"),
+                  codeName: z.string().describe("Index name"),
+                })
+                .passthrough()
+            )
             .nullable()
             .describe(
               "Array of index codes for this subject, or null if no codes available"
@@ -171,18 +223,17 @@ export const subjectCodesResponseSchema = baseSubjectSchema
   )
 
 // All Indices response schema (XML API) - for index/data/price_all
+// Empty result sets arrive as a self-closing <indices/> element: xml2js then
+// yields "" (no attributes) or an object missing the data keys (attributes
+// merged) — preprocess + defaults turn both into clean empty arrays.
 export const allIndicesResponseSchema = z
   .object({
-    indices: z
-      .object({
-        "xsi:noNamespaceSchemaLocation": z
-          .array(z.string())
-          .describe("XML schema location for validation"),
-        "xmlns:xsi": z
-          .array(z.string())
-          .describe("XML schema instance namespace"),
+    indices: z.preprocess(
+      (v) => (v == null || typeof v === "string" ? {} : v),
+      z.object({
         UpdateDate: z
           .array(z.string())
+          .default([])
           .describe("Last update timestamp in ISO format"),
         chapter: z
           .array(
@@ -246,9 +297,10 @@ export const allIndicesResponseSchema = z
                 .describe("Array of month data"),
             })
           )
+          .default([])
           .describe("Array of chapters containing index data"),
       })
-      .describe("Main indices data structure from XML API"),
+    ),
   })
   .describe(
     "All indices response from XML API containing nested structure with chapters, months, and index data"
@@ -256,10 +308,12 @@ export const allIndicesResponseSchema = z
 
 // Main Indices response schema (XML API) - for regular main indices endpoint
 export const mainIndicesXmlResponseSchema = z.object({
-  indices: z
-    .object({
+  indices: z.preprocess(
+    (v) => (v == null || typeof v === "string" ? {} : v),
+    z.object({
       UpdateDate: z
         .array(z.string())
+        .default([])
         .describe("Last update timestamp of the indices data (ISO format)"),
       date: z.array(
         z.object({
@@ -301,17 +355,16 @@ export const mainIndicesXmlResponseSchema = z.object({
             })
           ),
         })
-      ),
+      ).default([]),
     })
-    .describe(
-      "Root indices container with update metadata and date-organized index data"
-    ),
+  ),
 })
 
 // Main Indices By Period response schema (XML API) - for by-period endpoint
 export const mainIndicesByPeriodXmlResponseSchema = z.object({
-  indices: z
-    .object({
+  indices: z.preprocess(
+    (v) => (v == null || typeof v === "string" ? {} : v),
+    z.object({
       ind: z
         .array(
           z.object({
@@ -336,9 +389,12 @@ export const mainIndicesByPeriodXmlResponseSchema = z.object({
               .describe("Base period description (e.g., 'Average 2022')"),
           })
         )
-        .describe("Array of individual index entries"),
+        .default([])
+        .describe(
+          "Array of individual index entries (empty when no data matches the period range)"
+        ),
     })
-    .describe("Root indices container with array of index data"),
+  ),
 })
 
 // Transformed response types (what handlers return)
@@ -369,8 +425,9 @@ export const transformedMainIndicesSchema = z.object({
           ),
         percent: z
           .number()
+          .nullable()
           .describe(
-            "Monthly percentage change of the index (positive = increase, negative = decrease)"
+            "Monthly percentage change of the index (positive = increase, negative = decrease; null when CBS omits the value)"
           ),
         year: z.string().describe("Year of the index data (YYYY format)"),
         month: z
@@ -401,9 +458,17 @@ export const transformedMainIndicesByPeriodSchema = z.object({
           .string()
           .describe("Unique numeric index code identifier (e.g., '120010')"),
         name: z.string().describe("Full descriptive name of the index"),
-        percent: z.number().describe("Monthly percentage change of the index"),
+        percent: z
+          .number()
+          .nullable()
+          .describe(
+            "Monthly percentage change of the index (null when CBS omits the value)"
+          ),
         date: z.string().describe("Date of the index data in YYYY-MM format"),
-        index: z.number().describe("Index value for this period"),
+        index: z
+          .number()
+          .nullable()
+          .describe("Index value for this period (null when CBS omits it)"),
         base: z
           .string()
           .describe("Base period description (e.g., 'Average 2022')"),

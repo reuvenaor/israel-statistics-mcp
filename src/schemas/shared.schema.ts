@@ -30,12 +30,6 @@ export const currencySchema = z
     "Currency type. Options: new_sheqel=current Israeli Shekel (default, most common) | old_sheqel=pre-1980s Israeli Shekel | lira=historical Israeli Lira."
   )
 
-export const formatSchema = z
-  .enum(["json", "xml"])
-  .describe(
-    "Response format. Options: json=JSON format (recommended, default) | xml=XML format. Use json unless you specifically need XML."
-  )
-
 export const oldFormatSchema = z
   .boolean()
   .describe(

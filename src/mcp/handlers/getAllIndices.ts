@@ -33,7 +33,7 @@ export async function getAllIndices(
   )
 
   // Check for housing-related warnings
-  const housingWarning = checkHousingWarnings(args?.chapter)
+  const housingWarning = checkHousingWarnings({ chapter: args?.chapter })
   const chapterFilter = args?.chapter ? ` for chapter ${args.chapter}` : ""
 
   // Count total indices across all chapters

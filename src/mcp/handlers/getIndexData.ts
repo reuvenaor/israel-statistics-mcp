@@ -10,7 +10,7 @@ import {
 export async function getIndexData(args: z.infer<typeof getIndexDataSchema>) {
   const params: Record<string, string> = {
     id: args.code,
-    format: args.format || "json",
+    format: "json",
     download: "false",
   }
 
@@ -40,13 +40,15 @@ export async function getIndexData(args: z.infer<typeof getIndexDataSchema>) {
   const avg =
     values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0
 
-  // Check for housing-related warnings
-  const housingWarning = checkHousingWarnings(
-    undefined,
-    args.code,
-    data.month?.[0]?.name
-  )
-  const baseSummary = `Retrieved ${allDataPoints.length} data points. Average value: ${avg.toFixed(2)}.`
+  const housingWarning = checkHousingWarnings({
+    code: args.code,
+    indexName: data.month?.[0]?.name,
+    targetPeriod: args.endPeriod,
+  })
+  const baseSummary =
+    allDataPoints.length > 0
+      ? `Retrieved ${allDataPoints.length} data points. Average value: ${avg.toFixed(2)}.`
+      : `No data points found for index ${args.code} in the requested range.`
 
   return {
     data,

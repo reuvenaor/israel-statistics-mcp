@@ -25,7 +25,7 @@ export async function getChapterTopics(
   )
 
   // Check for housing-related warnings
-  const housingWarning = checkHousingWarnings(args.chapterId)
+  const housingWarning = checkHousingWarnings({ chapter: args.chapterId })
   const baseSummary = `Found ${data.subject.length} topics in chapter ${args.chapterId}.`
 
   return {

@@ -132,10 +132,16 @@ export const chapterWithSubjectsSchema = baseChapterSchema.extend({
 
 // Base value/index schema - used for price indices
 export const baseIndexValueSchema = z.object({
-  value: z.number().describe("Index value for this specific base period"),
+  value: z
+    .number()
+    .nullable()
+    .describe(
+      "Index value for this specific base period (null when CBS ships a non-numeric value)"
+    ),
   base: z.string().describe("Base period description"),
   chainingCoefficient: z
     .number()
+    .nullable()
     .optional()
     .describe(
       "Coefficient used for linking indices across different base periods"
