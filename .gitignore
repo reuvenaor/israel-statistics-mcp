@@ -41,3 +41,11 @@ tsconfig.tsbuildinfo
 
 
 DEV.md
+
+# claude code (personal/local only — shared config IS committed)
+.claude/settings.local.json
+.claude/agent-memory-local/
+CLAUDE.local.md
+
+# npm pack artifacts
+*.tgz
