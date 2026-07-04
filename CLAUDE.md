@@ -59,7 +59,8 @@ Authoritative endpoint reference: @INSTRUCTIONS.md (English translation of the C
 
 ## Release
 
-- **Changesets only** — never `npm publish` by hand. One changeset per user-visible change-group. `release.yml` is the single publish path (npm + provenance → Docker buildx → MCP Registry).
-- **Before any publish**: `pnpm pack` + `publint` and inspect the tarball (dist/ + README + LICENSE, shebang, both bins); build the local Docker image and smoke it (`docker build -t israel-statistics-mcp:dev .`).
-- `server.json` version is CI-patched from package.json — don't edit versions by hand. Keep the README tool table (9 tools) and `server.json` in sync with `src/mcp/tools.ts`.
-- Node engines `>=20`; pnpm version pinned via `packageManager`.
+- **ZERO configured CI secrets — all publishing is local and web-authenticated** (maintainer decision; never design workflows needing NPM_TOKEN/DOCKERHUB secrets). CI only gates PRs and maintains the changesets "Version Packages" PR via the automatic GITHUB_TOKEN.
+- One changeset per user-visible change-group. Local publish flow after merging the Version PR: `pnpm release` + `git push --follow-tags` → `docker buildx … --push` (Docker Desktop auth) → `mcp-publisher login github && mcp-publisher publish`. Full steps: docs/DEVELOPMENT.md + the `/release` skill.
+- **Before any publish**: `pnpm pack` + `publint`, inspect the tarball (dist/ + README + LICENSE, shebang, both bins), **install the .tgz in a temp dir and smoke the installed bin**, and build + smoke the local Docker image.
+- `server.json` version is hand-maintained — keep it equal to the released version; keep the README tool table (9 tools) and `server.json` in sync with `src/mcp/tools.ts`.
+- Node engines `>=20`; pnpm version pinned via `packageManager` (Dockerfile derives it — corepack-free).

@@ -16,7 +16,9 @@ and no secrets. The primary security surfaces are:
 - response parsing (content-type aware; HTML/error payloads rejected cleanly;
   no raw parser/validation internals surfaced to clients)
 - supply chain (3 runtime deps, `pnpm audit` CI gate, frozen lockfile,
-  SHA-pinned actions, npm provenance, SBOM'd non-root Docker images)
+  SHA-pinned actions, non-root Docker images stripped of package managers;
+  releases are published locally by the maintainer — the repo holds zero
+  configured CI secrets)
 
 ## Reporting a vulnerability
 
