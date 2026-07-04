@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm build)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm test)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm smoke)",
+      "Bash(pnpm audit:*)",
+      "Bash(pnpm outdated:*)",
+      "Bash(node scripts/smoke.mjs:*)",
+      "Bash(npx @modelcontextprotocol/inspector:*)",
+      "Bash(npx -y @modelcontextprotocol/inspector:*)",
+      "Bash(docker build:*)",
+      "Bash(docker run --rm -i israel-statistics-mcp:*)",
+      "mcp__israel-statistics"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)"
+    ]
+  }
+}

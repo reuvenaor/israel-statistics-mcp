@@ -1,0 +1,387 @@
+<?xml version="1.0"?>
+<indices xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://api.cbs.gov.il/xsd/price/prices.xsd">
+  <ind>
+    <date>2024-01</date>
+    <name>Consumer Price Index - General</name>
+    <index>105.0</index>
+    <percent>0.0</percent>
+    <code>120010</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>The index, excluding vegetables and fruit</name>
+    <index>104.8</index>
+    <percent>0.0</percent>
+    <code>120020</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>The index, excluding housing</name>
+    <index>104.2</index>
+    <percent>-0.1</percent>
+    <code>110040</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>The index, excluding vegetables, fruit and housing</name>
+    <index>103.9</index>
+    <percent>0.0</percent>
+    <code>120030</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>The index, excluding energy</name>
+    <index>104.9</index>
+    <percent>-0.1</percent>
+    <code>110045</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>B,C Price index of manufacturing and Mining and Quarrying</name>
+    <index>121.3</index>
+    <percent>0.2</percent>
+    <code>170010</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>The index, excluding fuel</name>
+    <index>115.4</index>
+    <percent>0.7</percent>
+    <code>170020</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>C Wholesale price index of manufacturing output</name>
+    <index>121.9</index>
+    <percent>0.2</percent>
+    <code>170030</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Price index of manufacturing (excluding fuel)</name>
+    <index>115.6</index>
+    <percent>0.7</percent>
+    <code>170050</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Price index of input in residential building - general</name>
+    <index>130.2</index>
+    <percent>0.3</percent>
+    <code>200010</code>
+    <base>July 2011</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Price Index of Input in  Commercial and Office  Building - General</name>
+    <index>126.8</index>
+    <percent>0.5</percent>
+    <code>800010</code>
+    <base>January 2012</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Paving and bridging Input price index - general</name>
+    <index>141.1</index>
+    <percent>0.1</percent>
+    <code>240010</code>
+    <base>January 2010</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Price index of input in agriculture - general</name>
+    <index>117.5</index>
+    <percent>0.1</percent>
+    <code>260010</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Index of input prices in buses - general (excl. housing services)</name>
+    <index>122.5</index>
+    <percent>0.6</percent>
+    <code>440010</code>
+    <base>January 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Index of input prices in public van services - general (excl. housing services and excl. compensation for employee jobs)</name>
+    <index>125.0</index>
+    <percent>0.3</percent>
+    <code>432010</code>
+    <base>May 2020</base>
+  </ind>
+  <ind>
+    <date>2024-01</date>
+    <name>Price Index of Input in Mini Buses - General Population  (excl. housing services)</name>
+    <index>120.0</index>
+    <percent>0.2</percent>
+    <code>432005</code>
+    <base>May 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Consumer Price Index - General</name>
+    <index>105.4</index>
+    <percent>0.4</percent>
+    <code>120010</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>The index, excluding vegetables and fruit</name>
+    <index>105.1</index>
+    <percent>0.3</percent>
+    <code>120020</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>The index, excluding housing</name>
+    <index>104.9</index>
+    <percent>0.7</percent>
+    <code>110040</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>The index, excluding vegetables, fruit and housing</name>
+    <index>104.5</index>
+    <percent>0.6</percent>
+    <code>120030</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>The index, excluding energy</name>
+    <index>105.2</index>
+    <percent>0.3</percent>
+    <code>110045</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>B,C Price index of manufacturing and Mining and Quarrying</name>
+    <index>121.6</index>
+    <percent>0.2</percent>
+    <code>170010</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>The index, excluding fuel</name>
+    <index>115.0</index>
+    <percent>-0.3</percent>
+    <code>170020</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>C Wholesale price index of manufacturing output</name>
+    <index>122.3</index>
+    <percent>0.3</percent>
+    <code>170030</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Price index of manufacturing (excluding fuel)</name>
+    <index>115.3</index>
+    <percent>-0.3</percent>
+    <code>170050</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Price index of input in residential building - general</name>
+    <index>129.9</index>
+    <percent>-0.2</percent>
+    <code>200010</code>
+    <base>July 2011</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Price Index of Input in  Commercial and Office  Building - General</name>
+    <index>126.5</index>
+    <percent>-0.2</percent>
+    <code>800010</code>
+    <base>January 2012</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Paving and bridging Input price index - general</name>
+    <index>140.6</index>
+    <percent>-0.4</percent>
+    <code>240010</code>
+    <base>January 2010</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Price index of input in agriculture - general</name>
+    <index>117.4</index>
+    <percent>-0.1</percent>
+    <code>260010</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Index of input prices in buses - general (excl. housing services)</name>
+    <index>123.7</index>
+    <percent>1.0</percent>
+    <code>440010</code>
+    <base>January 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Index of input prices in public van services - general (excl. housing services and excl. compensation for employee jobs)</name>
+    <index>126.4</index>
+    <percent>1.1</percent>
+    <code>432010</code>
+    <base>May 2020</base>
+  </ind>
+  <ind>
+    <date>2024-02</date>
+    <name>Price Index of Input in Mini Buses - General Population  (excl. housing services)</name>
+    <index>120.9</index>
+    <percent>0.8</percent>
+    <code>432005</code>
+    <base>May 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Consumer Price Index - General</name>
+    <index>106.0</index>
+    <percent>0.6</percent>
+    <code>120010</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>The index, excluding vegetables and fruit</name>
+    <index>105.8</index>
+    <percent>0.7</percent>
+    <code>120020</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>The index, excluding housing</name>
+    <index>105.5</index>
+    <percent>0.6</percent>
+    <code>110040</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>The index, excluding vegetables, fruit and housing</name>
+    <index>105.2</index>
+    <percent>0.7</percent>
+    <code>120030</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>The index, excluding energy</name>
+    <index>105.8</index>
+    <percent>0.6</percent>
+    <code>110045</code>
+    <base>Average 2022</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>B,C Price index of manufacturing and Mining and Quarrying</name>
+    <index>121.6</index>
+    <percent>0.0</percent>
+    <code>170010</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>The index, excluding fuel</name>
+    <index>114.6</index>
+    <percent>-0.3</percent>
+    <code>170020</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>C Wholesale price index of manufacturing output</name>
+    <index>122.2</index>
+    <percent>-0.1</percent>
+    <code>170030</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Price index of manufacturing (excluding fuel)</name>
+    <index>114.8</index>
+    <percent>-0.4</percent>
+    <code>170050</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Price index of input in residential building - general</name>
+    <index>130.2</index>
+    <percent>0.2</percent>
+    <code>200010</code>
+    <base>July 2011</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Price Index of Input in  Commercial and Office  Building - General</name>
+    <index>126.6</index>
+    <percent>0.1</percent>
+    <code>800010</code>
+    <base>January 2012</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Paving and bridging Input price index - general</name>
+    <index>141.1</index>
+    <percent>0.4</percent>
+    <code>240010</code>
+    <base>January 2010</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Price index of input in agriculture - general</name>
+    <index>116.1</index>
+    <percent>-1.1</percent>
+    <code>260010</code>
+    <base>Average 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Index of input prices in buses - general (excl. housing services)</name>
+    <index>124.2</index>
+    <percent>0.4</percent>
+    <code>440010</code>
+    <base>January 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Index of input prices in public van services - general (excl. housing services and excl. compensation for employee jobs)</name>
+    <index>126.3</index>
+    <percent>-0.1</percent>
+    <code>432010</code>
+    <base>May 2020</base>
+  </ind>
+  <ind>
+    <date>2024-03</date>
+    <name>Price Index of Input in Mini Buses - General Population  (excl. housing services)</name>
+    <index>120.9</index>
+    <percent>0.0</percent>
+    <code>432005</code>
+    <base>May 2020</base>
+  </ind>
+</indices>

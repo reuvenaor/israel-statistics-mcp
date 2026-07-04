@@ -1,9 +1,15 @@
 import z from "zod"
 
+// NOT an enum: CBS adds chapters over time (g and j appeared in 2026) —
+// get_catalog_chapters is the authoritative list at any moment.
 export const chapterSchema = z
-  .enum(["a", "aa", "b", "ba", "bb", "c", "ca", "d", "e", "f", "fa"])
+  .string()
+  .regex(
+    /^[a-z]{1,3}$/,
+    "chapter must be a short lowercase id like 'a' or 'aa'"
+  )
   .describe(
-    "Index category filter. Options: a=Consumer Price Index (groceries, retail) | aa=Housing Market Index | b=Producer Price Index Industrial | ba=Producer Price Index Exports | bb=Producer Price Index Services | c=Residential Building Input | ca=Commercial Building Input | d=Road Construction Input | e=Agriculture Input | f=Bus Input | fa=Public Minibus Input. Leave empty for all."
+    "Index chapter id. Known chapters: a=Consumer Price Index (groceries, retail) | aa=Housing Market Index | b=Producer Price Index Industrial | ba=Producer Price Index Exports | bb=Producer Price Index Services | c=Residential Building Input | ca=Commercial Building Input | d=Road Construction Input | e=Agriculture Input | f=Bus Input | fa=Public Minibus Input — call get_catalog_chapters for the current full list. Leave empty for all."
   )
 
 export const languageSchema = z
@@ -28,12 +34,6 @@ export const currencySchema = z
   .enum(["new_sheqel", "old_sheqel", "lira"])
   .describe(
     "Currency type. Options: new_sheqel=current Israeli Shekel (default, most common) | old_sheqel=pre-1980s Israeli Shekel | lira=historical Israeli Lira."
-  )
-
-export const formatSchema = z
-  .enum(["json", "xml"])
-  .describe(
-    "Response format. Options: json=JSON format (recommended, default) | xml=XML format. Use json unless you specifically need XML."
   )
 
 export const oldFormatSchema = z

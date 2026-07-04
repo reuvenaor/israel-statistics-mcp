@@ -5,9 +5,11 @@ import {
   periodSchema,
   searchTypeSchema,
   currencySchema,
-  formatSchema,
   oldFormatSchema,
 } from "./shared.schema"
+
+const MONTH_YEAR_PATTERN = /^(0[1-9]|1[0-2])-\d{4}$/
+const YEAR_MONTH_COMPACT_PATTERN = /^\d{4}(0[1-9]|1[0-2])$/
 
 // Common global parameters for all API calls
 const globalParamsSchema = {
@@ -90,18 +92,19 @@ export const getIndexCalculatorSchema = z.object({
     ),
   value: z
     .number()
+    .positive()
     .describe(
-      "The original amount in the currency you want to link/adjust for inflation. For example, 100 for 100 shekels."
+      "The original amount in the currency you want to link/adjust for inflation. Must be positive. For example, 100 for 100 shekels."
     ),
   fromDate: z
     .string()
     .describe(
-      "Starting date for the linkage calculation in mm-dd-yyyy format (e.g., '01-01-2020'). This is when your original amount was valued."
+      "Starting date of the linkage calculation — when the original amount was valued. Use yyyy-mm-dd (recommended, e.g. '2020-01-15'). mm-dd-yyyy is also accepted; dd-mm-yyyy only when the day is >12 (otherwise it is read as mm-dd-yyyy per CBS convention)."
     ),
   toDate: z
     .string()
     .describe(
-      "Target date for the linkage calculation in mm-dd-yyyy format (e.g., '01-01-2024'). This shows what the amount is worth at this later date."
+      "Target date of the linkage calculation — what the amount is worth at this later date. Use yyyy-mm-dd (recommended, e.g. '2024-06-15'). Same format rules as fromDate."
     ),
   currency: currencySchema.optional(),
   ...globalParamsSchema,
@@ -121,15 +124,23 @@ export const getMainIndicesSchema = z.object({
 })
 
 export const getMainIndicesByPeriodSchema = z.object({
-  startDate: z
+  startDate: z.coerce
     .string()
+    .regex(
+      YEAR_MONTH_COMPACT_PATTERN,
+      "startDate must be yyyymm, e.g. '202001' for January 2020"
+    )
     .describe(
       "Starting period in yyyymm format, e.g., '202001' for January 2020. Cannot be earlier than 199701 (January 1997)."
     ),
-  endDate: z
+  endDate: z.coerce
     .string()
+    .regex(
+      YEAR_MONTH_COMPACT_PATTERN,
+      "endDate must be yyyymm, e.g. '202412' for December 2024"
+    )
     .describe(
-      "Ending period in yyyymm format, e.g., '202412' for December 2024. Must be later than startDate."
+      "Ending period in yyyymm format, e.g., '202412' for December 2024. Must not be earlier than startDate."
     ),
   ...globalParamsSchema,
   explanation: z
@@ -149,26 +160,36 @@ export const getAllIndicesSchema = z.object({
 })
 
 export const getIndexDataSchema = z.object({
-  code: z
+  code: z.coerce
     .string()
+    .regex(/^\d+$/, "code must be a numeric index code, e.g. '120010'")
     .describe(
-      "The index code (numeric string) you want price data for. Get this code first from getSubjectCodes or getIndexTopics. Example: '120010' for general CPI."
+      "The index code you want price data for (numeric, as string or number). Get this code first from getSubjectCodes or getIndexTopics. Example: '120010' for general CPI."
     ),
   startPeriod: z
     .string()
+    .regex(
+      MONTH_YEAR_PATTERN,
+      "startPeriod must be mm-yyyy, e.g. '01-2020' for January 2020"
+    )
     .optional()
     .describe(
       "Starting period in mm-yyyy format like '01-2020' for January 2020. Leave empty to get data from the beginning of the series."
     ),
   endPeriod: z
     .string()
+    .regex(
+      MONTH_YEAR_PATTERN,
+      "endPeriod must be mm-yyyy, e.g. '12-2024' for December 2024"
+    )
     .optional()
     .describe(
       "Ending period in mm-yyyy format like '12-2024' for December 2024. Leave empty to get data up to the most recent available."
     ),
-  format: formatSchema.optional(),
   last: z
     .number()
+    .int()
+    .positive()
     .optional()
     .describe(
       "Get only the N most recent data points instead of the full series. Useful for getting just the latest values, e.g., use 12 for the last year of monthly data."

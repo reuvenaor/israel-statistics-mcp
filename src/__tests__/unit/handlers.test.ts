@@ -1,23 +1,23 @@
 import { describe, expect, it, vi, beforeEach } from "vitest"
-import { getIndexTopics } from "../mcp/handlers/getIndexTopics"
-import { getCatalogChapters } from "../mcp/handlers/getCatalogChapters"
-import { getChapterTopics } from "../mcp/handlers/getChapterTopics"
-import { getSubjectCodes } from "../mcp/handlers/getSubjectCodes"
-import { getIndexData } from "../mcp/handlers/getIndexData"
-import { getIndexCalculator } from "../mcp/handlers/getIndexCalculator"
-import { getAllIndices } from "../mcp/handlers/getAllIndices"
+import { getIndexTopics } from "../../mcp/handlers/getIndexTopics"
+import { getCatalogChapters } from "../../mcp/handlers/getCatalogChapters"
+import { getChapterTopics } from "../../mcp/handlers/getChapterTopics"
+import { getSubjectCodes } from "../../mcp/handlers/getSubjectCodes"
+import { getIndexData } from "../../mcp/handlers/getIndexData"
+import { getIndexCalculator } from "../../mcp/handlers/getIndexCalculator"
+import { getAllIndices } from "../../mcp/handlers/getAllIndices"
 import {
   getMainIndices,
   getMainIndicesByPeriod,
-} from "../mcp/handlers/getMainIndices"
+} from "../../mcp/handlers/getMainIndices"
 
 // Mock the secureFetch function
-vi.mock("../mcp/helpers/fetcher", () => ({
+vi.mock("../../mcp/helpers/fetcher", () => ({
   secureFetch: vi.fn(),
   GlobalParams: {},
 }))
 
-import { secureFetch } from "../mcp/helpers/fetcher"
+import { secureFetch } from "../../mcp/helpers/fetcher"
 const mockSecureFetch = vi.mocked(secureFetch)
 
 describe("Israel Statistics MCP Handlers", () => {
@@ -273,7 +273,6 @@ describe("Israel Statistics MCP Handlers", () => {
         code: "180010",
         startPeriod: "01-2024",
         endPeriod: "03-2024",
-        format: "json",
         lang: "en",
       })
 
@@ -341,8 +340,9 @@ describe("Israel Statistics MCP Handlers", () => {
         "index/data/calculator/120010",
         {
           value: "100",
-          date: "01-01-2020",
-          toDate: "01-01-2024",
+          // handler normalizes CBS-ambiguous mm-dd-yyyy input to yyyy-mm-dd
+          date: "2020-01-01",
+          toDate: "2024-01-01",
           format: "json",
           download: "false",
           currency: "new_sheqel",
@@ -453,7 +453,8 @@ describe("Israel Statistics MCP Handlers", () => {
       expect(mockSecureFetch).toHaveBeenCalledWith(
         "index/data/price_selected",
         {
-          format: "json",
+          // price_selected is XML-only — the handler requests what it serves
+          format: "xml",
           download: "false",
         },
         expect.any(Object),
