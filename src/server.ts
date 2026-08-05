@@ -8,7 +8,7 @@ const MAX_QUEUED_OPERATIONS = 50
 
 const INSTRUCTIONS = `Israeli CBS (Central Bureau of Statistics) price indices and economic data.
 
-Discovery workflow: get_catalog_chapters (11 chapters a..fa) -> get_chapter_topics (subjects) -> get_subject_codes (index codes) -> get_index_data (time series) or get_index_calculator (inflation linkage). For keyword search across everything, start with get_index_topics instead. get_main_indices gives the current headline snapshot without any discovery.
+Discovery workflow: get_catalog_chapters (the authoritative chapter list — CBS adds chapters over time, currently 14) -> get_chapter_topics (subjects) -> get_subject_codes (index codes) -> get_index_data (time series) or get_index_calculator (inflation linkage). For keyword search across everything, start with get_index_topics instead. get_main_indices gives the current headline snapshot without any discovery.
 
 Format rules that matter:
 - Index-data periods: mm-yyyy (e.g. '01-2020'). By-period dates: yyyymm (e.g. '202001', floor 199701).

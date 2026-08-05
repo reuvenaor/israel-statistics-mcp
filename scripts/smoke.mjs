@@ -12,7 +12,7 @@
  * commands never resolve to this repo's local package by name.
  */
 import { execFile } from "node:child_process"
-import { mkdtempSync, rmSync } from "node:fs"
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { dirname, join, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -28,6 +28,10 @@ const serverCommand =
   commandIndex !== -1 && argv[commandIndex + 1]
     ? argv[commandIndex + 1].split(" ").filter(Boolean)
     : ["node", join(projectRoot, "dist", "index.js")]
+
+// Pinned: an unpinned `npx -y @modelcontextprotocol/inspector` floated to v2.0.0
+// on 2026-07-28 and turned the nightly red for 8 days with no commit in this repo.
+const INSPECTOR_VERSION = "2.1.0"
 
 const EXPECTED_TOOLS = [
   "get_all_indices",
@@ -45,6 +49,26 @@ const EXPECTED_TOOLS = [
 // project instead of the registry — a real footgun found during testing.
 const workDir = mkdtempSync(join(tmpdir(), "israstat-smoke-"))
 
+// Describe the server in a config file rather than passing it inline after
+// `--cli`. Inspector v2 parses flags out of the trailing command, so the inline
+// form loses `--rm`/`-i` from `docker run --rm -i <image>` and docker dies with
+// "'docker run' requires at least 1 argument". The config form has no such
+// ambiguity and works identically for `node dist/index.js`.
+const SERVER_KEY = "smoke"
+const configPath = join(workDir, "mcp-smoke.json")
+writeFileSync(
+  configPath,
+  JSON.stringify({
+    mcpServers: {
+      [SERVER_KEY]: {
+        type: "stdio",
+        command: serverCommand[0],
+        args: serverCommand.slice(1),
+      },
+    },
+  })
+)
+
 const results = []
 let failed = false
 
@@ -56,12 +80,40 @@ function report(name, ok, detail = "") {
 }
 
 async function inspector(args, { timeoutMs = 120_000 } = {}) {
-  const { stdout } = await execFileAsync(
-    "npx",
-    ["-y", "@modelcontextprotocol/inspector", "--cli", ...serverCommand, ...args],
-    { cwd: workDir, timeout: timeoutMs, maxBuffer: 32 * 1024 * 1024 }
-  )
-  return JSON.parse(stdout)
+  const npxArgs = [
+    "-y",
+    `@modelcontextprotocol/inspector@${INSPECTOR_VERSION}`,
+    "--cli",
+    "--config",
+    configPath,
+    "--server",
+    SERVER_KEY,
+    ...args,
+  ]
+  const execOpts = {
+    cwd: workDir,
+    timeout: timeoutMs,
+    maxBuffer: 32 * 1024 * 1024,
+  }
+  try {
+    const { stdout } = await execFileAsync("npx", npxArgs, execOpts)
+    return JSON.parse(stdout)
+  } catch (err) {
+    // Exit-code conventions differ across Inspector majors: v1 exited 0 for a
+    // tool result carrying isError:true, v2 exits 5 and prints a
+    // {"error":{"code":"tool_is_error"}} envelope on *stderr*. In both cases
+    // stdout is still the single, complete JSON-RPC result — which is exactly
+    // what the invalid-args check needs to inspect. Accept any exit code whose
+    // stdout parses; rethrow anything else (spawn failure, timeout, crash).
+    if (typeof err.stdout === "string" && err.stdout.trim()) {
+      try {
+        return JSON.parse(err.stdout)
+      } catch {
+        // fall through — stdout was not a usable result
+      }
+    }
+    throw err
+  }
 }
 
 async function callTool(name, toolArgs, { retries = LIVE ? 3 : 1 } = {}) {
@@ -96,7 +148,9 @@ function structured(result) {
 }
 
 async function main() {
-  console.log(`MCP smoke — command: ${serverCommand.join(" ")}${LIVE ? " (live)" : ""}`)
+  console.log(
+    `MCP smoke — command: ${serverCommand.join(" ")}${LIVE ? " (live)" : ""}`
+  )
 
   // Step 1 — offline: the Inspector must connect and list exactly 9 tools.
   // (Published v0.0.2 failed right here: phantom capabilities → -32601.)
@@ -114,7 +168,11 @@ async function main() {
     )
     report("every tool has title/description/outputSchema/readOnlyHint", metaOk)
   } catch (err) {
-    report("inspector connects + 9 tools listed", false, String(err).slice(0, 200))
+    report(
+      "inspector connects + 9 tools listed",
+      false,
+      String(err).slice(0, 200)
+    )
     finish()
     return
   }
@@ -203,7 +261,8 @@ async function liveSweep() {
     {
       name: "get_all_indices",
       args: { chapter: "a", lang: "en" },
-      verify: (s) => typeof s.summary === "string" && s.summary.includes("chapter a"),
+      verify: (s) =>
+        typeof s.summary === "string" && s.summary.includes("chapter a"),
     },
   ]
 

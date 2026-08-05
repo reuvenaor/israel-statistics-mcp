@@ -64,7 +64,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - name: Verify package exports and types
-        run: npx --yes publint
+        # Pinned: an unpinned npx tool on a CI critical path can turn PRs red
+        # with no commit in this repo (see the Inspector v2 drift in smoke.mjs).
+        run: npx --yes publint@0.3.23
       - name: Verify tarball contents and bin shebang
         run: |
           pnpm pack

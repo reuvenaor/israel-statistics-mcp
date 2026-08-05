@@ -34,27 +34,61 @@ function isHousingCode(code: string | number | undefined): boolean {
   return /^18\d{4}$/.test(s)
 }
 
+// CBS publishes on Israel local dates. Reading the publication day off the host
+// clock puts a UTC+13 server a calendar day ahead, which can flip a period that
+// is still provisional into the "these values are final" branch below.
+const ISRAEL_TIME_ZONE = "Asia/Jerusalem"
+
+const israelDateParts = new Intl.DateTimeFormat("en-US", {
+  timeZone: ISRAEL_TIME_ZONE,
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+})
+
+function toIsraelDate(now: Date): {
+  year: number
+  month: number
+  day: number
+} {
+  const parts = israelDateParts.formatToParts(now)
+  const part = (type: string) =>
+    Number(parts.find((p) => p.type === type)?.value)
+  return { year: part("year"), month: part("month"), day: part("day") }
+}
+
 /**
- * Approximate the provisional transaction window: publications lag ~2 months
- * behind transactions, and the last 3 bi-monthly publications (≈6 months of
- * transactions) are still provisional.
+ * Approximate the provisional transaction window. Publications lag ~2 months
+ * behind the transactions they describe, and CBS keeps revising the last 3
+ * published values.
  */
 export function getProvisionalWindow(now: Date = new Date()): {
   start: { year: number; month: number }
   end: { year: number; month: number }
   label: string
 } {
-  // Latest published data month: ~2 months back (publication around the 15th).
-  const publicationLag = now.getDate() >= 15 ? 2 : 3
-  const end = new Date(now.getFullYear(), now.getMonth() - publicationLag, 1)
-  // Three bi-monthly publications ≈ six months of provisional transactions.
-  const start = new Date(end.getFullYear(), end.getMonth() - 5, 1)
+  const today = toIsraelDate(now)
+  // INSTRUCTIONS.md: "for a date between July 16th and August 15th, the last
+  // published index is based on transactions in April-May". So the index
+  // published on the 15th only becomes the latest one AFTER the 15th — on the
+  // 15th itself the previous month's publication is still the most recent.
+  const publicationLag = today.day > 15 ? 2 : 3
+  // UTC arithmetic: month rollover must not depend on host DST.
+  const end = new Date(
+    Date.UTC(today.year, today.month - 1 - publicationLag, 1)
+  )
+  // Deliberately conservative: cover ~6 months of transactions behind the
+  // latest publication. Over-warning only costs a caution; under-warning would
+  // declare still-provisional values "final" for money linkage.
+  const start = new Date(
+    Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - 5, 1)
+  )
 
   const fmt = (d: Date) =>
-    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`
+    `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`
   return {
-    start: { year: start.getFullYear(), month: start.getMonth() + 1 },
-    end: { year: end.getFullYear(), month: end.getMonth() + 1 },
+    start: { year: start.getUTCFullYear(), month: start.getUTCMonth() + 1 },
+    end: { year: end.getUTCFullYear(), month: end.getUTCMonth() + 1 },
     label: `${fmt(start)} through ${fmt(end)}`,
   }
 }
@@ -86,7 +120,7 @@ export function checkHousingWarnings(input: HousingCheckInput): HousingWarning {
     )
   } else {
     warnings.push(
-      `🔄 Provisional data: the last 3 published indices (transactions ~${window.label}) may still be revised when late transaction reports arrive.`
+      `🔄 Provisional data: CBS revises the last 3 published Housing Price Index values as late transaction reports arrive. Treat transactions from ~${window.label} as still subject to revision.`
     )
     warnings.push(
       "💡 For price linkage over recent periods, prefer an end date before the provisional window or expect small revisions."

@@ -97,13 +97,17 @@
   },
   "pnpm": {
     "overrides": {
-      "path-to-regexp": "^8.4.0",
-      "qs": "^6.15.3",
+      "fast-uri": ">=3.1.5",
+      "ip-address": ">=10.3.1",
+      "hono": ">=4.12.34",
+      "@hono/node-server": ">=2.0.5",
+      "postcss": ">=8.5.23",
+      "brace-expansion": ">=5.0.9",
       "esbuild": ">=0.28.1"
     }
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "xml2js": "^0.6.2",
     "zod": "^3.25.76"
   },

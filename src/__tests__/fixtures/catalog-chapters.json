@@ -1,0 +1,102 @@
+{
+  "chapters": [
+    {
+      "chapterId": "a",
+      "chapterName": "Consumer Prices Index",
+      "chapterOrder": 1,
+      "mainCode": 120010,
+      "subject": null
+    },
+    {
+      "chapterId": "aa",
+      "chapterName": "Average Housing Indices and Prices",
+      "chapterOrder": 2,
+      "mainCode": 40010,
+      "subject": null
+    },
+    {
+      "chapterId": "b",
+      "chapterName": "Producer Price Indices - Manufacturing Output for the Domestic Market",
+      "chapterOrder": 3,
+      "mainCode": 170030,
+      "subject": null
+    },
+    {
+      "chapterId": "ba",
+      "chapterName": "Producer Price Indices of Manufacturing for Exports",
+      "chapterOrder": 4,
+      "mainCode": null,
+      "subject": null
+    },
+    {
+      "chapterId": "ba",
+      "chapterName": "Producer Price Indices of Manufacturing, Mining and Quarrying Output for Exports",
+      "chapterOrder": 4,
+      "mainCode": null,
+      "subject": null
+    },
+    {
+      "chapterId": "bb",
+      "chapterName": "Producer Price Indices for Services (SPPI)",
+      "chapterOrder": 5,
+      "mainCode": null,
+      "subject": null
+    },
+    {
+      "chapterId": "c",
+      "chapterName": "Prices Indices of Input in Residential Building",
+      "chapterOrder": 6,
+      "mainCode": 200010,
+      "subject": null
+    },
+    {
+      "chapterId": "ca",
+      "chapterName": "Price Index of Input in Commercial and Office Building",
+      "chapterOrder": 7,
+      "mainCode": 800010,
+      "subject": null
+    },
+    {
+      "chapterId": "d",
+      "chapterName": "Price Indices of Input in Road Construction and Bridging",
+      "chapterOrder": 8,
+      "mainCode": 240010,
+      "subject": null
+    },
+    {
+      "chapterId": "e",
+      "chapterName": "Price Indices of Input in Agriculture",
+      "chapterOrder": 9,
+      "mainCode": 260010,
+      "subject": null
+    },
+    {
+      "chapterId": "f",
+      "chapterName": "Price Indices of Input in Buses",
+      "chapterOrder": 10,
+      "mainCode": 440010,
+      "subject": null
+    },
+    {
+      "chapterId": "fa",
+      "chapterName": "Price Indices of Input in Public Van Services",
+      "chapterOrder": 11,
+      "mainCode": 432010,
+      "subject": null
+    },
+    {
+      "chapterId": "g",
+      "chapterName": "General",
+      "chapterOrder": 12,
+      "mainCode": null,
+      "subject": null
+    },
+    {
+      "chapterId": "j",
+      "chapterName": "General",
+      "chapterOrder": 13,
+      "mainCode": null,
+      "subject": null
+    }
+  ]
+}

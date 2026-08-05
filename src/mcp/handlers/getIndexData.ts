@@ -1,4 +1,4 @@
-import { secureFetch, GlobalParams } from "../helpers/fetcher"
+import { secureFetch, GlobalParams, CBS_MAX_PAGESIZE } from "../helpers/fetcher"
 import { indexDataResponseSchema } from "../../schemas/response.schema"
 import { getIndexDataSchema } from "../../schemas/request.schema"
 import { z } from "zod"
@@ -19,11 +19,14 @@ export async function getIndexData(args: z.infer<typeof getIndexDataSchema>) {
   if (args.last) params.last = args.last.toString()
   if (args.coef) params.coef = args.coef.toString()
 
-  // Extract global parameters
+  // Extract global parameters. CBS defaults pagesize to 100, which silently
+  // truncates a long range (25 years of monthly CPI = 300 points -> 100
+  // returned) and would make the average below describe only the first page.
+  // Ask for CBS's maximum unless the caller is paginating deliberately.
   const globalParams: GlobalParams = {
     lang: args.lang,
     page: args.page,
-    pagesize: args.pagesize,
+    pagesize: args.pagesize ?? CBS_MAX_PAGESIZE,
   }
 
   const endpoint = `index/data/price`
@@ -45,10 +48,26 @@ export async function getIndexData(args: z.infer<typeof getIndexDataSchema>) {
     indexName: data.month?.[0]?.name,
     targetPeriod: args.endPeriod,
   })
-  const baseSummary =
-    allDataPoints.length > 0
-      ? `Retrieved ${allDataPoints.length} data points. Average value: ${avg.toFixed(2)}.`
-      : `No data points found for index ${args.code} in the requested range.`
+  // CBS paginates: never present a partial page as if it were the whole series.
+  const totalItems = data.paging?.total_items ?? allDataPoints.length
+  const truncated = totalItems > allDataPoints.length
+  const truncationNote = truncated
+    ? ` Note: this is page ${data.paging.current_page} of ${data.paging.last_page} — ${allDataPoints.length} of ${totalItems} data points. The average covers only the returned page; narrow the period or request the remaining pages for the full series.`
+    : ""
+
+  // `month` is null for quarterly index codes — the series is in `quarter`.
+  // Reporting "no data points" there tells the model CBS has nothing, while
+  // the full series is sitting in the payload it was just handed.
+  const quarterlyPoints = data.quarter?.length ?? 0
+
+  let baseSummary: string
+  if (allDataPoints.length > 0) {
+    baseSummary = `Retrieved ${allDataPoints.length} data points. Average value: ${avg.toFixed(2)}.${truncationNote}`
+  } else if (quarterlyPoints > 0) {
+    baseSummary = `Retrieved ${quarterlyPoints} quarterly data points for index ${args.code}. This is a quarterly series, so the values are under data.quarter rather than data.month.${truncationNote}`
+  } else {
+    baseSummary = `No data points found for index ${args.code} in the requested range.`
+  }
 
   return {
     data,
