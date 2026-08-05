@@ -367,6 +367,39 @@ describe("housing warnings", () => {
     ).toBeLessThan(0)
   })
 
+  // REGRESSION: the boundary was `>= 15`, which advanced the window a full
+  // month one day early. INSTRUCTIONS.md: for any date from July 16 through
+  // August 15 the LAST published index is the July one (transactions Apr-May),
+  // so the publication on the 15th only counts after the 15th.
+  it("treats the 15th as before the new publication, the 16th as after", () => {
+    // Noon UTC keeps these instants on the same Israel calendar day.
+    const on15th = getProvisionalWindow(new Date("2026-08-15T12:00:00Z"))
+    expect(on15th.end).toEqual({ year: 2026, month: 5 })
+
+    const on16th = getProvisionalWindow(new Date("2026-08-16T12:00:00Z"))
+    expect(on16th.end).toEqual({ year: 2026, month: 6 })
+  })
+
+  // REGRESSION: the window was derived from now.getDate(), i.e. the HOST
+  // timezone. On a UTC+13 host the Israeli 14th reads as the 15th, which
+  // shifted the window and could emit the "these values are final" branch for
+  // a period that is still provisional.
+  it("derives the window from Israel time, not the host timezone", () => {
+    // A deliberately discriminating instant:
+    //   Israel   (UTC+3)  -> Aug 15 23:00, day 15 -> lag 3 -> window ends May
+    //   Auckland (UTC+12) -> Aug 16 08:00, day 16 -> lag 2 -> window ends June
+    // Reading the day off the host clock therefore gives the WRONG answer on
+    // any far-east host, and wrongly widens the "final" claim by a month.
+    // This assertion must hold whatever TZ the suite runs under — the suite is
+    // also executed under TZ=Pacific/Auckland and TZ=UTC in CI.
+    const instant = new Date("2026-08-15T20:00:00Z")
+
+    expect(getProvisionalWindow(instant).end).toEqual({
+      year: 2026,
+      month: 5,
+    })
+  })
+
   it("marks old periods as final and recent periods as provisional", () => {
     const now = new Date(2026, 6, 20)
     const old = checkHousingWarnings({
