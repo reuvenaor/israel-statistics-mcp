@@ -67,6 +67,28 @@ CBS realities the schemas tolerate: null coefficients (`mult_min`/`mult_max`, e.
 - Supply chain: 3 runtime deps, `pnpm audit` CI gate at zero, frozen lockfile, SHA-pinned actions, digest-pinned base image, runtime image stripped of npm/npx/corepack/yarn, non-root (uid 1001)
 - **Zero configured CI secrets** — publishing is done locally with web-authenticated accounts
 
+### Security overrides (`pnpm.overrides` in `package.json`)
+
+`package.json` is JSON and cannot carry comments, so the advisory each override addresses
+is recorded here. Each is a **floor** (`>=`), not a pin, so ordinary upgrades still flow.
+Retire an override once every dependent's own range demands the patched version anyway —
+then delete the line, run `pnpm install && pnpm audit`, and confirm it stays clean.
+
+| Override                    | Advisory                                                                                     | Reached via              | Retire when                              |
+| --------------------------- | -------------------------------------------------------------------------------------------- | ------------------------ | ---------------------------------------- |
+| `fast-uri >=3.1.5`          | GHSA-v2hh-gcrm-f6hx, GHSA-7p8r-x3mc-p8w7 (host confusion via backslash authority)            | sdk → ajv                | `ajv` requires `>=3.1.5`                 |
+| `ip-address >=10.3.1`       | GHSA-mwp4-54f8-5fhr, GHSA-4xrf-jv44-h6hh, GHSA-22jq-vg5j-6vgg (SSRF / trust-boundary bypass) | sdk → express-rate-limit | `express-rate-limit` requires `>=10.3.1` |
+| `hono >=4.12.34`            | GHSA-8j4g-w8fx-2239 (ReDoS in CORS middleware)                                               | sdk                      | sdk requires `>=4.12.34`                 |
+| `@hono/node-server >=2.0.5` | GHSA-frvp-7c67-39w9 (path traversal in serve-static on Windows)                              | sdk                      | sdk drops the `^1.19.9` alternative      |
+| `postcss >=8.5.23`          | GHSA-r28c-9q8g-f849, GHSA-fxqj-rqcc-2cmp (arbitrary `.map` disclosure)                       | tsup (optional peer)     | `tsup` requires `>=8.5.23`               |
+| `brace-expansion >=5.0.9`   | GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 (DoS via unbounded expansion)                       | eslint → minimatch       | `minimatch` requires `>=5.0.9`           |
+| `esbuild >=0.28.1`          | GHSA-g7r4-m6w7-qqqr                                                                          | tsup                     | `tsup` moves off `^0.27.0`               |
+
+Note the last one **forces esbuild outside tsup's declared `^0.27.0` range** — no published
+tsup allows the patched line, and 8.5.1 is the latest. It is dev-only (esbuild never ships;
+`files` is `dist`/README/LICENSE) and the build is verified against it, but if a future tsup
+upgrade misbehaves, this override is the first thing to suspect.
+
 ## Testing policy
 
 - Unit tests never touch the network (`secureFetch`/`fetch` mocked; real CBS payloads live in `src/__tests__/fixtures/`). Every bug fix ships with a unit repro.
