@@ -29,6 +29,10 @@ const serverCommand =
     ? argv[commandIndex + 1].split(" ").filter(Boolean)
     : ["node", join(projectRoot, "dist", "index.js")]
 
+// Pinned: an unpinned `npx -y @modelcontextprotocol/inspector` floated to v2.0.0
+// on 2026-07-28 and turned the nightly red for 8 days with no commit in this repo.
+const INSPECTOR_VERSION = "2.1.0"
+
 const EXPECTED_TOOLS = [
   "get_all_indices",
   "get_catalog_chapters",
@@ -56,12 +60,37 @@ function report(name, ok, detail = "") {
 }
 
 async function inspector(args, { timeoutMs = 120_000 } = {}) {
-  const { stdout } = await execFileAsync(
-    "npx",
-    ["-y", "@modelcontextprotocol/inspector", "--cli", ...serverCommand, ...args],
-    { cwd: workDir, timeout: timeoutMs, maxBuffer: 32 * 1024 * 1024 }
-  )
-  return JSON.parse(stdout)
+  const npxArgs = [
+    "-y",
+    `@modelcontextprotocol/inspector@${INSPECTOR_VERSION}`,
+    "--cli",
+    ...serverCommand,
+    ...args,
+  ]
+  const execOpts = {
+    cwd: workDir,
+    timeout: timeoutMs,
+    maxBuffer: 32 * 1024 * 1024,
+  }
+  try {
+    const { stdout } = await execFileAsync("npx", npxArgs, execOpts)
+    return JSON.parse(stdout)
+  } catch (err) {
+    // Exit-code conventions differ across Inspector majors: v1 exited 0 for a
+    // tool result carrying isError:true, v2 exits 5 and prints a
+    // {"error":{"code":"tool_is_error"}} envelope on *stderr*. In both cases
+    // stdout is still the single, complete JSON-RPC result — which is exactly
+    // what the invalid-args check needs to inspect. Accept any exit code whose
+    // stdout parses; rethrow anything else (spawn failure, timeout, crash).
+    if (typeof err.stdout === "string" && err.stdout.trim()) {
+      try {
+        return JSON.parse(err.stdout)
+      } catch {
+        // fall through — stdout was not a usable result
+      }
+    }
+    throw err
+  }
 }
 
 async function callTool(name, toolArgs, { retries = LIVE ? 3 : 1 } = {}) {
@@ -96,7 +125,9 @@ function structured(result) {
 }
 
 async function main() {
-  console.log(`MCP smoke — command: ${serverCommand.join(" ")}${LIVE ? " (live)" : ""}`)
+  console.log(
+    `MCP smoke — command: ${serverCommand.join(" ")}${LIVE ? " (live)" : ""}`
+  )
 
   // Step 1 — offline: the Inspector must connect and list exactly 9 tools.
   // (Published v0.0.2 failed right here: phantom capabilities → -32601.)
@@ -114,7 +145,11 @@ async function main() {
     )
     report("every tool has title/description/outputSchema/readOnlyHint", metaOk)
   } catch (err) {
-    report("inspector connects + 9 tools listed", false, String(err).slice(0, 200))
+    report(
+      "inspector connects + 9 tools listed",
+      false,
+      String(err).slice(0, 200)
+    )
     finish()
     return
   }
@@ -203,7 +238,8 @@ async function liveSweep() {
     {
       name: "get_all_indices",
       args: { chapter: "a", lang: "en" },
-      verify: (s) => typeof s.summary === "string" && s.summary.includes("chapter a"),
+      verify: (s) =>
+        typeof s.summary === "string" && s.summary.includes("chapter a"),
     },
   ]
 
