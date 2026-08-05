@@ -89,6 +89,18 @@ tsup allows the patched line, and 8.5.1 is the latest. It is dev-only (esbuild n
 `files` is `dist`/README/LICENSE) and the build is verified against it, but if a future tsup
 upgrade misbehaves, this override is the first thing to suspect.
 
+### Image security review (2026-08-06)
+
+`docker scout` over the built image. What passes, and the one accepted risk:
+
+- **npm layer: 0 vulnerabilities.** `fast-uri@4.1.2`, `ip-address@10.4.0`, `hono@4.13.0`, `@hono/node-server@2.1.0` — the overrides above reach the image.
+- **Runtime surface:** uid 1001 (`appuser`), no npm/npx/corepack/yarn, no global `node_modules`; `/app` holds only `dist`, `node_modules`, `package.json` — no source, tests, lockfile, `.env` or `.git`.
+- **Publishing metadata:** `io.modelcontextprotocol.server.name` equals `server.json`'s `name` (that label is what proves namespace ownership to `mcp-publisher`); version identical across `package.json`, `server.json`, both `packages[]` entries and the OCI tag.
+
+**Accepted risk — Debian base CVEs.** The base layer carries ~45 advisories across 14 packages, including 2 critical + 2 high attributed to `perl` (5.36.0-7+deb12u3). All four are marked **"not fixed"** by Debian, and only `perl-base` is installed — which is `Essential=yes, Priority=required`, so apt refuses to remove it. Refreshing the pinned digest does not help (the newest `24-bookworm-slim` still scans 3C/8H).
+
+Accepted because a Node stdio server never invokes perl: it is unreachable code on disk, not an exploit path. Distroless was built and tested as the alternative (works, 9 tools, smoke 3/3, 243MB vs 379MB, eliminates perl and both shells) but was **rejected** — `gcr.io/distroless/nodejs24-debian12:nonroot` ships Node <24.17.0 with 2 HIGH in the node binary itself, trading unreachable perl CVEs for a stale runtime we actually execute. Revisit if Debian issues a perl fix, or once the distroless tag catches up to Node 24.18+.
+
 ## Testing policy
 
 - Unit tests never touch the network (`secureFetch`/`fetch` mocked; real CBS payloads live in `src/__tests__/fixtures/`). Every bug fix ships with a unit repro.
