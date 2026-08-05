@@ -12,9 +12,14 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: live-cbs
+  cancel-in-progress: false
+
 jobs:
   live:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
@@ -31,14 +36,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
           title="Nightly live CBS suite failed ($(date -u +%F))"
-          body="The live CBS verification failed. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          body=$(cat <<EOF
+          The live CBS verification failed. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
 
-          Triage: if ALL tools fail with timeouts/5xx it is a CBS outage — close this. A single tool/schema failure means CBS changed a payload shape: capture the new payload as a fixture and adjust the response schema."
+          Triage:
+          - ALL tools failing with timeouts/5xx = CBS outage. Close this.
+          - A single tool/schema failure = CBS changed a payload shape. Capture the new payload as a fixture and adjust the response schema.
+          - Every CBS tool passing but a smoke check failing = harness drift, not CBS. Check whether the pinned MCP Inspector version in scripts/smoke.mjs needs a bump.
+          EOF
+          )
+          # No `|| gh issue create` fallback: if the live-cbs-failure label is
+          # missing, this step must fail loudly. The old fallback created an
+          # UNLABELLED issue, which the dedupe query below could never find —
+          # that filed a fresh duplicate every night (issues #10-#17).
           existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --label live-cbs-failure --state open --json number --jq '.[0].number // empty')
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
           else
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" --label live-cbs-failure || \
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body" --label live-cbs-failure
           fi
