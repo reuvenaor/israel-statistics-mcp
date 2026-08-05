@@ -55,10 +55,19 @@ export async function getIndexData(args: z.infer<typeof getIndexDataSchema>) {
     ? ` Note: this is page ${data.paging.current_page} of ${data.paging.last_page} — ${allDataPoints.length} of ${totalItems} data points. The average covers only the returned page; narrow the period or request the remaining pages for the full series.`
     : ""
 
-  const baseSummary =
-    allDataPoints.length > 0
-      ? `Retrieved ${allDataPoints.length} data points. Average value: ${avg.toFixed(2)}.${truncationNote}`
-      : `No data points found for index ${args.code} in the requested range.`
+  // `month` is null for quarterly index codes — the series is in `quarter`.
+  // Reporting "no data points" there tells the model CBS has nothing, while
+  // the full series is sitting in the payload it was just handed.
+  const quarterlyPoints = data.quarter?.length ?? 0
+
+  let baseSummary: string
+  if (allDataPoints.length > 0) {
+    baseSummary = `Retrieved ${allDataPoints.length} data points. Average value: ${avg.toFixed(2)}.${truncationNote}`
+  } else if (quarterlyPoints > 0) {
+    baseSummary = `Retrieved ${quarterlyPoints} quarterly data points for index ${args.code}. This is a quarterly series, so the values are under data.quarter rather than data.month.${truncationNote}`
+  } else {
+    baseSummary = `No data points found for index ${args.code} in the requested range.`
+  }
 
   return {
     data,

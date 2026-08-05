@@ -401,6 +401,31 @@ describe("Israel Statistics MCP Handlers", () => {
       expect(result.summary).toContain("2 of 300 data points")
       expect(result.summary).toContain("average covers only the returned page")
     })
+
+    // REGRESSION: `month` is null for quarterly codes and the series lives in
+    // `quarter`, which no handler read — so quarterly indices reported "no
+    // data" while holding the full series.
+    it("reports quarterly series instead of claiming there is no data", async () => {
+      mockSecureFetch.mockResolvedValue({
+        month: null,
+        quarter: [{ code: 120010, name: "Quarterly series" }, {}, {}],
+        paging: paging({ total_items: 3 }),
+      })
+
+      const result = await getIndexData({ code: "120010", lang: "en" })
+
+      expect(result.summary).not.toContain("No data points found")
+      expect(result.summary).toContain("3 quarterly data points")
+      expect(result.summary).toContain("data.quarter")
+    })
+
+    it("still reports an empty range as no data", async () => {
+      mockSecureFetch.mockResolvedValue(emptyIndexData())
+
+      const result = await getIndexData({ code: "120010", lang: "en" })
+
+      expect(result.summary).toContain("No data points found")
+    })
   })
 
   describe("getIndexCalculator", () => {
