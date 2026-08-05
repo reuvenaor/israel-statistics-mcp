@@ -27,7 +27,9 @@ export const getIndexTopicsOutputSchema = transformedIndexTopicsSchema
 export const getCatalogChaptersOutputSchema = z.object({
   chapters: z
     .array(baseChapterSchema)
-    .describe("All available index chapters (a..fa)"),
+    .describe(
+      "All available index chapters, as CBS currently publishes them (the list grows over time)"
+    ),
   summary: summaryField,
 })
 
