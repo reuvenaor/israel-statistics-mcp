@@ -9,6 +9,12 @@ const REQUEST_TIMEOUT_MS = 30_000
 const MAX_RESPONSE_BYTES = 15 * 1024 * 1024
 const MAX_RETRIES = 1
 const RETRY_BASE_DELAY_MS = 500
+/**
+ * CBS caps `pagesize` at 1000 and defaults it to 100. Handlers that return a
+ * whole series should ask for the cap explicitly — the default silently
+ * truncates long ranges.
+ */
+export const CBS_MAX_PAGESIZE = 1000
 // CBS requires a User-Agent header on all API requests.
 const USER_AGENT = `${SERVER_NAME}/${VERSION} (+${REPO_URL})`
 const ACCEPT =
@@ -226,8 +232,7 @@ export async function secureFetch<S extends z.ZodTypeAny>(
       url.searchParams.append("page", globalParams.page.toString())
     }
     if (globalParams.pagesize) {
-      // CBS caps pagesize at 1000
-      const pagesize = Math.min(globalParams.pagesize, 1000)
+      const pagesize = Math.min(globalParams.pagesize, CBS_MAX_PAGESIZE)
       url.searchParams.append("pagesize", pagesize.toString())
     }
   }

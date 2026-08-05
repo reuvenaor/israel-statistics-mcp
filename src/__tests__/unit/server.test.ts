@@ -6,6 +6,8 @@ import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js"
 vi.mock("../../mcp/helpers/fetcher", () => ({
   secureFetch: vi.fn(),
   GlobalParams: {},
+  // Real value from fetcher.ts — handlers default pagesize to it.
+  CBS_MAX_PAGESIZE: 1000,
 }))
 
 import { secureFetch } from "../../mcp/helpers/fetcher"

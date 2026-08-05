@@ -15,10 +15,64 @@ import {
 vi.mock("../../mcp/helpers/fetcher", () => ({
   secureFetch: vi.fn(),
   GlobalParams: {},
+  // Real value from fetcher.ts — handlers default pagesize to it.
+  CBS_MAX_PAGESIZE: 1000,
 }))
 
 import { secureFetch } from "../../mcp/helpers/fetcher"
 const mockSecureFetch = vi.mocked(secureFetch)
+
+function paging(overrides: Record<string, unknown> = {}) {
+  return {
+    total_items: 0,
+    page_size: 1000,
+    current_page: 1,
+    last_page: 1,
+    first_url: "http://example.com",
+    previous_url: null,
+    current_url: "http://example.com",
+    next_url: null,
+    last_url: "http://example.com",
+    base_url: "http://example.com",
+    ...overrides,
+  }
+}
+
+/** index/data/price reply carrying `values.length` monthly points. */
+function indexDataPayload({
+  values,
+  paging: pagingOverrides = {},
+  name = "General CPI",
+}: {
+  values: number[]
+  paging?: Record<string, unknown>
+  name?: string
+}) {
+  return {
+    month: [
+      {
+        code: 120010,
+        name,
+        date: values.map((value, i) => ({
+          year: 2024,
+          month: i + 1,
+          monthDesc: "Month",
+          percent: 0,
+          percentYear: 0,
+          currBase: { baseDesc: "Average 2024", value },
+          prevBase: null,
+        })),
+      },
+    ],
+    quarter: null,
+    paging: paging({ total_items: values.length, ...pagingOverrides }),
+  }
+}
+
+/** index/data/price reply for a range CBS has no monthly data for. */
+function emptyIndexData() {
+  return { month: null, quarter: null, paging: paging() }
+}
 
 describe("Israel Statistics MCP Handlers", () => {
   beforeEach(() => {
@@ -220,7 +274,9 @@ describe("Israel Statistics MCP Handlers", () => {
         {
           lang: "en",
           page: undefined,
-          pagesize: undefined,
+          // subjectCodesResponseSchema strips `paging`, so a truncated page
+          // would be invisible — always ask CBS for its maximum.
+          pagesize: 1000,
         }
       )
 
@@ -289,13 +345,61 @@ describe("Israel Statistics MCP Handlers", () => {
         {
           lang: "en",
           page: undefined,
-          pagesize: undefined,
+          pagesize: 1000,
         }
       )
 
       expect(result.data).toEqual(mockApiResponse)
       expect(result.summary).toContain("Retrieved 1 data points")
       expect(result.summary).toContain("Average value: 103.50")
+      expect(result.summary).not.toContain("Note: this is page")
+    })
+
+    // REGRESSION: CBS defaults pagesize to 100, so a 25-year request returned
+    // 100 of 300 points and the summary reported that partial mean as if it
+    // were the whole range. Verified against live CBS:
+    //   id=120010 startPeriod=01-2000 endPeriod=12-2024
+    //   -> total_items: 300, last_page: 3, 100 rows returned
+    it("requests CBS's maximum pagesize instead of letting CBS truncate at 100", async () => {
+      mockSecureFetch.mockResolvedValue(emptyIndexData())
+
+      await getIndexData({ code: "120010", lang: "en" })
+
+      expect(mockSecureFetch).toHaveBeenCalledWith(
+        "index/data/price",
+        expect.any(Object),
+        expect.any(Object),
+        expect.objectContaining({ pagesize: 1000 })
+      )
+    })
+
+    it("does not override an explicit pagesize from the caller", async () => {
+      mockSecureFetch.mockResolvedValue(emptyIndexData())
+
+      await getIndexData({ code: "120010", lang: "en", pagesize: 50, page: 2 })
+
+      expect(mockSecureFetch).toHaveBeenCalledWith(
+        "index/data/price",
+        expect.any(Object),
+        expect.any(Object),
+        expect.objectContaining({ pagesize: 50, page: 2 })
+      )
+    })
+
+    it("states the truncation instead of presenting a partial page as the whole series", async () => {
+      // Shape of the real CBS reply: 300 items, page 1 of 3, 2 rows stubbed in.
+      mockSecureFetch.mockResolvedValue(
+        indexDataPayload({
+          values: [100, 200],
+          paging: { total_items: 300, current_page: 1, last_page: 3 },
+        })
+      )
+
+      const result = await getIndexData({ code: "120010", lang: "en" })
+
+      expect(result.summary).toContain("page 1 of 3")
+      expect(result.summary).toContain("2 of 300 data points")
+      expect(result.summary).toContain("average covers only the returned page")
     })
   })
 
